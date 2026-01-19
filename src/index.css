@@ -113,7 +113,7 @@ body {
   outline: none;
   border: 1px solid var(--bg-2);
   font-family: "Poppins", sans-serif;
-
+  
   border-radius: 10px;
   color: white;
 }
@@ -131,7 +131,12 @@ body {
 
   padding-top: 1vw;
 }
-
+.loginDiv form{
+  display: flex;
+  /* align-items: center; */
+  flex-direction: column;
+  
+}
 .loginDiv input[type = "submit"]{
   background-color: var(--bg-3);
   margin-top: 2vw;
