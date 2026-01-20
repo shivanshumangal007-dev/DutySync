@@ -1,14 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const formhandler = (e) => {
+  const formhandler = async (e) => {
     e.preventDefault();
     console.log("form submitted");
 
-    console.log("email : ", email )
-    console.log("password : ", password )
+    console.log("email : ", email);
+    console.log("password : ", password);
+
+    try {
+      const response = await axios.post(
+        "http://192.168.1.86:8000/api/login", // proper API made by your friend
+        {
+          email: email,
+          password: password,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
+
+      console.log("Login Success:", response.data);
+    } catch (error) {
+      console.log("Error:", error.response?.data || error.message);
+    }
   };
   return (
     <div className="loginMainDiv">

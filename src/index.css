@@ -14,7 +14,9 @@
   padding: 0;
   box-sizing: border-box;
   color: white;
-  font-family: "Zalando Sans Expanded", sans-serif;
+  /* font-family: "Zalando Sans Expanded", sans-serif; */
+  font-family: "Poppins", sans-serif;
+
 }
 
 html,
@@ -162,4 +164,44 @@ body {
     font-size: 2.4vw;
 
   }
+}
+
+
+.employeeMainDiv{
+  width: 100vw;
+  min-height: 100vh;
+  background-color: var(--bg-4);
+  padding: 2vw;
+}
+
+.employeeMainDiv > h1{
+  font-size: 3vw;
+  text-transform: capitalize;
+  text-decoration: underline;
+  padding: 1vw;
+}
+
+.tasksData{
+  display: flex;
+  gap: 1vw;
+  justify-content: flex-start;
+  /* background-color: var(--bg-3); */
+  padding: 1vw 0vw;
+  border-radius: 20px;
+}
+
+.tasksData > div{
+  width: 20rem;
+  padding: 1vw;
+  background-color: #2b124cb3;
+  /* background-clip: ; */
+  border-radius: 20px;
+}
+
+.taskInfo h1{
+  font-size: 2.5vw;
+}
+.taskInfo h2{
+  font-size: 1.7vw;
+  text-transform: capitalize;
 }
