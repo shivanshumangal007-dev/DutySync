@@ -6,9 +6,9 @@ import EmplyoeeDashboard from './pages/EmplyoeeDashboard'
 const App = () => {
   return (
     <div>
-      <Loader/>
-      <Login/>
-      {/* <EmplyoeeDashboard/> */}
+      {/* <Loader/>
+      <Login/> */}
+      <EmplyoeeDashboard/>
     </div>
   )
 }
