@@ -2,6 +2,10 @@ from django.http import JsonResponse
 from .models import Login
 from django.views.decorators.csrf import csrf_exempt
 import json
+from django.shortcuts import render
+from rest_framework import generics
+from .serializers import TaskSerializer
+from .models import Task
 
 @csrf_exempt
 def login_api(request):
@@ -29,3 +33,12 @@ def login_api(request):
             })
 
     return JsonResponse({"error": "Only POST allowed"})
+
+class TaskView(generics.ListAPIView):
+    
+    serializer_class = TaskSerializer
+
+    def get_queryset(self):
+        user = self.request.user
+        return Task.objects.filter(assigned_to=user)
+
