@@ -9,13 +9,17 @@ import MainPage from './pages/mainPage'
 const App = () => {
   return (
     <div>
-      <Loader />
-      <Login /> 
+      {/* <Loader />
+      <Login />  */}
       {/* <EmplyoeeDashboard/>
         <Routes>
           <Route path='/' element={<MainPage/>}/>
           <Route path='/employee/dashboard' element={{/* <EmplyoeeDashboard/>}/>
         </Routes> */}
+      <Routes>
+        <Route path='/' element={<MainPage/>}/>
+        <Route path='/employee/dashboard' element={<EmplyoeeDashboard/>}/>
+      </Routes>
     </div>
   );
 }

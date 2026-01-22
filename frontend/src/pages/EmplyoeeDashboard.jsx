@@ -1,4 +1,5 @@
 import React from 'react'
+import TaskDiv from '../components/TaskDIv';
 
 const EmplyoeeDashboard = () => {
   return (
@@ -33,6 +34,7 @@ const EmplyoeeDashboard = () => {
             nesciunt voluptatibus minus?
           </p>
         </div>
+        <TaskDiv/>
       </div>
     </div>
   );

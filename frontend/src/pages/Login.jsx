@@ -25,14 +25,14 @@ const Login = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          withCredentials: true, // ✅ MUST be here
+          withCredentials: true,
         }
       );
 
       console.log("Login Success:", response.data);
 
       // setTasks(response.data.tasks || []);
-      // navigate("/employee/dashboard");
+      navigate("/employee/dashboard");
     } catch (error) {
       console.log("Error:", error.response?.data || error.message);
     }
