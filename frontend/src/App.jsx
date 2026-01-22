@@ -10,7 +10,7 @@ const App = () => {
   return (
     <div>
       <Loader />
-      <Login /> */}
+      <Login /> 
       {/* <EmplyoeeDashboard/>
         <Routes>
           <Route path='/' element={<MainPage/>}/>
