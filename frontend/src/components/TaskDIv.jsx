@@ -10,7 +10,7 @@ const TaskDiv = () => {
       try {
         // The URL of your Django TaskView
         const response = await axios.get("http://127.0.0.1:8000/task/", {
-          withCredentials: true, 
+          withCredentials: true,
         });
         setTasks(response.data);
         setLoading(false);
@@ -26,7 +26,16 @@ const TaskDiv = () => {
   if (loading) return <p>Loading tasks...</p>;
 
   return (
-    console.log(tasks)
+    <div className="taskdiv">
+      {tasks.map((task) => (
+        <div className="taskbox">
+          <h1>{task.title}</h1>
+          <p>
+            {task.description}
+          </p>
+        </div>
+      ))}
+    </div>
   );
 };
 
