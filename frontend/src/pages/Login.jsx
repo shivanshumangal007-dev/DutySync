@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-
+import { Navigate, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [tasks, setTasks] = useState([]);
+  const navigate = useNavigate();
   const formhandler = async (e) => {
     e.preventDefault();
     console.log("form submitted");
@@ -27,6 +29,9 @@ const Login = () => {
       );
 
       console.log("Login Success:", response.data);
+
+      // setTasks(response.data.tasks || []);
+      // navigate("/employee/dashboard");
     } catch (error) {
       console.log("Error:", error.response?.data || error.message);
     }
