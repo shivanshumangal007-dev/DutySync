@@ -14,7 +14,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/login/", // proper API made by your friend
+        "http://127.0.0.1:8000/api/login/",
         {
           email: email,
           password: password,
@@ -23,7 +23,8 @@ const Login = () => {
           headers: {
             "Content-Type": "application/json",
           },
-        },
+          withCredentials: true, // ✅ MUST be here
+        }
       );
 
       console.log("Login Success:", response.data);
@@ -44,7 +45,7 @@ const Login = () => {
           >
             <h2>email:</h2>
             <input
-              type="email"
+              type="text"
               placeholder="enter your email"
               onChange={(e) => {
                 setEmail(e.target.value);

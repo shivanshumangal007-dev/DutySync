@@ -3,12 +3,13 @@ import Loader from './pages/loader'
 import Login from './pages/Login'
 import EmplyoeeDashboard from './pages/EmplyoeeDashboard'
 
+
 const App = () => {
   return (
     <div>
-      {/* <Loader/>
-      <Login/> */}
-      <EmplyoeeDashboard/>
+      <Loader/>
+      <Login/>
+      {/* <EmplyoeeDashboard/> */}
     </div>
   )
 }
