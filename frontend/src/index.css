@@ -177,7 +177,7 @@ body {
 .employeeMainDiv > h1{
   font-size: 3vw;
   text-transform: capitalize;
-  text-decoration: underline;
+  /* text-decoration: underline; */
   padding: 1vw;
 }
 
@@ -193,9 +193,18 @@ body {
 .tasksData > div{
   width: 20rem;
   padding: 1vw;
-  background-color: #2b124cb3;
+  background-color: #33aaffb3;
   /* background-clip: ; */
   border-radius: 20px;
+}
+.tasksData > div:nth-child(1){
+  background-color: rgb(255, 170, 0);
+}
+.tasksData > div:nth-child(2){
+  background-color: rgb(255, 74, 74);
+}
+.tasksData > div:nth-child(3){
+  background-color: rgb(153, 255, 0);
 }
 
 .taskInfo h1{
@@ -204,4 +213,27 @@ body {
 .taskInfo h2{
   font-size: 1.7vw;
   text-transform: capitalize;
+}
+.taskdiv{
+
+  width: 100%;
+  display: flex;
+  gap: 1vw;
+  overflow-y: auto;
+  /* background-color: #2b124c; */
+  padding: 3rem 0rem;
+}
+.taskdiv::-webkit-scrollbar{
+  display: none;
+}
+.taskbox{
+  width: 30vw;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3vw;
+  padding: 1.5vw;
+  border-radius: 20px;
+  border: 2px solid var(--bg-5);
+  background-color: var(--bg-3);
 }

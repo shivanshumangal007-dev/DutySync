@@ -25,7 +25,7 @@ const EmplyoeeDashboard = () => {
       </div>
 
       <div className="taskdiv">
-        <div className="taskdiv">
+        <div className="taskbox">
           <h1>do optimisation of DSA code</h1>
           <p>
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Quae
