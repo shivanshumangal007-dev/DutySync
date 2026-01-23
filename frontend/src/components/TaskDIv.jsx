@@ -12,7 +12,8 @@ const TaskDiv = () => {
         const response = await axios.get("http://127.0.0.1:8000/task/", {
           withCredentials: true,
         });
-        setTasks(response.data);
+        setTasks(response.data.tasks);
+        // console.log("Fetched tasks:", response.data.tasks);
         setLoading(false);
       } catch (error) {
         console.error("Error fetching tasks:", error);
@@ -27,15 +28,21 @@ const TaskDiv = () => {
 
   return (
     <div className="taskdiv">
-      {/* {tasks.map((task) => (
-        <div className="taskbox">
+      {tasks.map((task, key) => (
+        <div className="taskbox" key={key}>
+          <div className="uppermost">
+            <span className="task-flag">high</span>
+            <span className="due-date">Due date: {task.due_date}</span>
+          </div>
           <h1>{task.title}</h1>
-          <p>
-            {task.description}
-          </p>
+          <p>{task.description}</p>
+          <div className="btn">
+            <button>mark as complete</button>
+          </div>
         </div>
-      ))} */}
-      <div className="taskbox">
+      ))}
+      {/* <TaskDiv/> */}
+      {/* <div className="taskbox">
         <div className="uppermost">
           <span className="task-flag">high</span>
           <span className="due-date">Due date: 2024-05-15</span>
@@ -45,7 +52,7 @@ const TaskDiv = () => {
         <div className="btn">
           <button>mark as complete</button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

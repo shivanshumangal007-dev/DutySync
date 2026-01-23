@@ -1,12 +1,13 @@
 import React from 'react'
 import TaskDiv from '../components/TaskDIv';
+import TaskData from '../components/TaskData';
 
 const EmplyoeeDashboard = () => {
   return (
     <div className="employeeMainDiv">
       <h1>hello, rohit 👋</h1>
 
-      <div className="tasksData">
+      {/* <div className="tasksData">
         <div className="taskInfo">
           <h1>10</h1>
           <h2>completed</h2>
@@ -23,7 +24,8 @@ const EmplyoeeDashboard = () => {
           <h1>40%</h1>
           <h2>progress</h2>
         </div>
-      </div>
+      </div> */}
+      <TaskData/>
 
 
       <TaskDiv/>
