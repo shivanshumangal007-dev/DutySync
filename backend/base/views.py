@@ -2,7 +2,7 @@ from django.http import JsonResponse
 from .models import Login
 from django.views.decorators.csrf import csrf_exempt
 import json
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from rest_framework import generics
 from .serializers import TaskSerializer
 from .models import Task
@@ -52,6 +52,7 @@ class TaskView(generics.ListAPIView):
         if user.is_authenticated:
             return Task.objects.filter(assigned_to=user)
         return Task.objects.none()
+    
 
     def list(self, request, *args, **kwargs):
         # 1. Get the original task list data
@@ -83,8 +84,17 @@ class TaskView(generics.ListAPIView):
             "userDetails":userDetails
         })
     
-        
-    
+def updateTaskStatus(request, pk):
+
+    task = get_object_or_404(Task, id = pk, assigned_to=request.user)
+
+    newStatus = request.data.get("status")
+
+    if newStatus:
+        task.status = newStatus
+        task.save()
+        return Response({"message": f"Task {pk} is now {newStatus}"})    
+    return Response({"error": "No status provided"}, status=400)
 
 @csrf_exempt
 def who_am_i(request):
