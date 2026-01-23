@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap");
 
 :root {
   --bg-1: #fbe4d8;
@@ -17,7 +17,6 @@
   /* font-family: "Zalando Sans Expanded", sans-serif; */
   font-family: "Poppins", sans-serif;
   /* outline: orangered 2px solid; */
-
 }
 
 html,
@@ -69,14 +68,14 @@ body {
   transform: translateY(100%);
 }
 
-.loginMainDiv{
+.loginMainDiv {
   width: 100vw;
   height: 100vh;
   display: grid;
   place-content: center;
 }
 
-.loginDiv{
+.loginDiv {
   width: 30vw;
   /* min-width: 31rem; */
   border-radius: 20px;
@@ -84,22 +83,20 @@ body {
   padding: 2vw;
   font-family: "Poppins", sans-serif;
   /* height: 70vh; */
-  background : linear-gradient(140deg ,#3c3c3c36 0%, #9d939255 100%);
+  background: linear-gradient(140deg, #3c3c3c36 0%, #9d939255 100%);
   backdrop-filter: blur(10px);
 }
 
-
-.loginDiv h1{
+.loginDiv h1 {
   font-size: 2.5vw;
   text-transform: uppercase;
   color: var(--bg-1);
   text-decoration: underline;
   font-weight: 800;
   font-family: "Poppins", sans-serif;
-
 }
 
-.loginDiv .inputs{
+.loginDiv .inputs {
   margin-top: 2rem;
   width: 100%;
   display: flex;
@@ -109,38 +106,36 @@ body {
   padding: 1vw 0;
 }
 
-.loginDiv input{
+.loginDiv input {
   padding: 1vw 2vw;
   width: 95%;
   background-color: transparent;
   outline: none;
   border: 1px solid var(--bg-2);
   font-family: "Poppins", sans-serif;
-  
+
   border-radius: 10px;
   color: white;
 }
 
-.loginDiv input::placeholder{
+.loginDiv input::placeholder {
   color: white;
   text-transform: capitalize;
   font-family: "Poppins", sans-serif;
-
 }
-.loginDiv h2{
+.loginDiv h2 {
   text-transform: capitalize;
   padding-bottom: 0.3vw;
   font-family: "Poppins", sans-serif;
 
   padding-top: 1vw;
 }
-.loginDiv form{
+.loginDiv form {
   display: flex;
   /* align-items: center; */
   flex-direction: column;
-  
 }
-.loginDiv input[type = "submit"]{
+.loginDiv input[type="submit"] {
   background-color: var(--bg-3);
   margin-top: 2vw;
   font-family: "Poppins", sans-serif;
@@ -151,88 +146,131 @@ body {
   font-weight: 800;
   font-size: 1.3vw;
 }
-.loginDiv input[type = "submit"]:hover{
+.loginDiv input[type="submit"]:hover {
   background-color: var(--bg-4);
 }
 
-
 @media screen and (max-width: 1183px) {
-  .loginDiv{
+  .loginDiv {
     width: 80vw;
   }
-  .loginDiv input[type = "submit"]{
+  .loginDiv input[type="submit"] {
     width: 60%;
     font-size: 2.4vw;
-
   }
 }
 
-
-.employeeMainDiv{
-  width: 100vw;
+.employeeMainDiv {
   min-height: 100vh;
-  background: linear-gradient(180deg,rgba(199, 121, 160, 1) 1%, rgba(133, 79, 108, 1) 20%, rgba(43, 18, 76, 1) 100%);
+  background: linear-gradient(
+    180deg,
+    rgba(199, 121, 160, 1) 1%,
+    rgba(133, 79, 108, 1) 20%,
+    rgba(43, 18, 76, 1) 100%
+  );
   /* padding: 2vw; */
-  max-width: 100vw;
+  max-width: 99vw;
   overflow-y: hidden;
+  /* box-sizing: border-box; */
+}
+
+.employeeMainDiv nav {
+  width: 100%;
+  /* height: 6vw; */
+  padding: 2vw 1vw;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   box-sizing: border-box;
 }
 
-.employeeMainDiv > h1{
+.employeeMainDiv nav h1 {
+  font-size: 2.5vw;
+  text-transform: uppercase;
+  color: white;
+  font-weight: 800;
+}
+
+.employeeMainDiv .navright {
+  display: flex;
+  align-items: center;
+  gap: 1vw;
+}
+.employeeMainDiv .navright img{
+  width: 3vw;
+  height: 3vw;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid white;
+}
+.employeeMainDiv .navright button {
+  padding: 0.5vw 1vw;
+  border: none;
+  border-radius: 10px;
+  background-color: rgb(255, 74, 74);
+  color: white;
+  font-size: 1.2vw;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  text-transform: capitalize;
+}
+
+.employeeMainDiv > h1 {
   font-size: 3vw;
   text-transform: capitalize;
   color: white;
+  width: fit-content;
   /* text-decoration: underline; */
-  padding: 1vw;
+  /* padding: 5vw 1vw 10vw 1vw; */
+  padding: 2vw 1vw;
 }
 
-.tasksData{
+.tasksData {
   display: flex;
   gap: 1vw;
   justify-content: flex-start;
   /* background-color: var(--bg-3); */
   padding: 1vw 1rem;
   border-radius: 20px;
-
 }
 
-.tasksData > div{
+.tasksData > div {
   width: 20rem;
   padding: 1vw;
   background-color: #33aaffb3;
   /* background-clip: ; */
   border-radius: 20px;
 }
-.tasksData > div:nth-child(1){
+.tasksData > div:nth-child(1) {
   background-color: rgb(255, 170, 0);
 }
-.tasksData > div:nth-child(2){
+.tasksData > div:nth-child(2) {
   background-color: rgb(255, 74, 74);
 }
-.tasksData > div:nth-child(3){
+.tasksData > div:nth-child(3) {
   background-color: rgb(153, 255, 0);
 }
 
-.taskInfo h1{
+.taskInfo h1 {
   font-size: 2.5vw;
 }
-.taskInfo h2{
+.taskInfo h2 {
   font-size: 1.7vw;
   text-transform: capitalize;
 }
-.taskdiv{
-
+.taskdiv {
   width: 100%;
+  max-width: 95vw;
   display: flex;
   gap: 1vw;
   overflow-y: auto;
   /* background-color: #2b124c; */
   padding: 3rem 1rem;
 }
-.taskdiv::-webkit-scrollbar{
+.taskdiv::-webkit-scrollbar {
   display: none;
 }
-.taskbox{
+.taskbox {
   width: 30vw;
   flex-shrink: 0;
   display: flex;
@@ -241,48 +279,64 @@ body {
   padding: 1.5vw;
   border-radius: 20px;
   border: 2px solid var(--bg-5);
-  background-color: rgba(255, 255, 255, 0.332);
+  background-color: #111;
 }
 
-.taskbox .uppermost{
+.taskbox .uppermost {
   /* padding: 1vw; */
   padding-bottom: 0.5vw;
   /* background-color: var(--bg-5); */
   border-bottom: 2px solid var(--bg-5);
   display: flex;
-  justify-content: space-between;  
+  justify-content: space-between;
 }
 
-.taskbox h1{
+.taskbox h1 {
   font-size: 2.5vw;
   padding: 1vw 0;
   text-transform: capitalize;
-  -webkit-text-stroke: #111 0.7px;
-} 
-.taskbox p{
+  -webkit-text-stroke: #222 0.7px;
+}
+.taskbox p {
   font-size: 1.5vw;
   line-height: 2.5vw;
 }
-.taskbox .uppermost span{
+.taskbox .uppermost span {
   padding: 0.2vw 0.5vw;
   border-radius: 10px;
   /* background-color: var(--bg-1); */
 }
-span.task-flag{
+span.task-flag.red-flag {
   background-color: rgba(255, 47, 47, 0.327);
   color: red;
   border: 2px solid red;
 }
-span.due-date{
-  color: #333;
+span.task-flag.orange-flag {
+  background-color: rgba(255, 165, 0, 0.327);
+  color: orange;
+  border: 2px solid orange;
+}
+span.task-flag.green-flag {
+  background-color: rgba(0, 255, 0, 0.327);
+  color: green;
+  border: 2px solid green;
+}
+
+span.task-flag {
+  background-color: rgba(255, 47, 47, 0.327);
+  color: red;
+  border: 2px solid red;
+}
+span.due-date {
+  color: #444;
   font-weight: 600;
 }
-.taskbox .btn{
+.taskbox .btn {
   display: flex;
   justify-content: center;
   margin-top: 1vw;
 }
-.taskbox .btn button{
+.taskbox .btn button {
   margin-top: auto;
   align-self: center;
   padding: 0.8vw 1vw;

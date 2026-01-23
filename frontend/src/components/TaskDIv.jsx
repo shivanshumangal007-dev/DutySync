@@ -45,7 +45,7 @@ const TaskDiv = ({ tasks }) => {
       {tasks.map((task, key) => (
         <div className="taskbox" key={key}>
           <div className="uppermost">
-            <span className="task-flag">{task.priority}</span>
+            <span className= {`task-flag ${task.priority === "HIGH" ? 'red-flag' : task.priority == "MEDIUM" ? 'orange-flag' : 'red-flag'}`}>{task.priority}</span>
             <span className="due-date">Due date: {task.due_date}</span>
           </div>
           <h1>{task.title}</h1>
