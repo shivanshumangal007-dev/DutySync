@@ -89,7 +89,7 @@ const EmplyoeeDashboard = () => {
       // </div> */}
       <TaskData stats={stats} />
 
-      <TaskDiv tasks={task} />
+      <TaskDiv tasks={task} setTasks={setTasks} setStats={setStats} />
     </div>
   );
 };

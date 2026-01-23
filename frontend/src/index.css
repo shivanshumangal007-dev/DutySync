@@ -271,7 +271,7 @@ body {
   display: none;
 }
 .taskbox {
-  width: 30vw;
+  width: 40vw;
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
@@ -288,11 +288,16 @@ body {
   background-color: #222;
 }
 
+.taskbox.inprogress{
+  border: 2px solid rgb(255, 217, 0);
+  background-color: #94790233;
+}
+
 .taskbox .uppermost {
   /* padding: 1vw; */
   padding-bottom: 0.5vw;
   /* background-color: var(--bg-5); */
-  border-bottom: 2px solid var(--bg-5);
+  border-bottom: 2px solid var(--bg-1);
   display: flex;
   justify-content: space-between;
 }
@@ -312,6 +317,22 @@ body {
   border-radius: 10px;
   /* background-color: var(--bg-1); */
 }
+.taskbox .uppermost span.inprogreessToaster{
+  background-color: rgb(255, 200, 0);
+  padding: 0.2vw 0.5vw;
+  border-radius: 10px;
+  color: #444;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+.taskbox .uppermost span.completedToaster{
+  background-color: green;
+  padding: 0.2vw 0.5vw;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: 600;
+  text-transform: capitalize;
+}
 span.task-flag.red-flag {
   background-color: rgba(255, 47, 47, 0.327);
   color: red;
@@ -323,9 +344,9 @@ span.task-flag.orange-flag {
   border: 2px solid orange;
 }
 span.task-flag.green-flag {
-  background-color: rgba(0, 255, 0, 0.327);
-  color: green;
-  border: 2px solid green;
+  background-color: rgba(43, 255, 43, 0.327);
+  color: rgb(13, 255, 0);
+  border: 2px solid rgb(13, 255, 0);
 }
 
 span.task-flag {
@@ -334,12 +355,12 @@ span.task-flag {
   border: 2px solid red;
 }
 span.due-date {
-  color: #444;
+  color: #757575;
   font-weight: 600;
 }
 .taskbox .btn {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   margin-top: 1vw;
 }
 .taskbox .btn button {
@@ -354,4 +375,8 @@ span.due-date {
   font-size: 1vw;
   cursor: pointer;
   transition: all 0.3s ease-in-out;
+}
+.taskbox .btn button:nth-child(2) {
+
+  background-color: rgb(255, 145, 0);
 }

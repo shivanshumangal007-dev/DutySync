@@ -1,7 +1,7 @@
 import React, { use, useEffect, useState } from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
-const TaskDiv = ({ tasks }) => {
+const TaskDiv = ({ tasks, setTasks, setStats }) => {
   // const [task, setTasks] = useState([]);
   // const [loading, setLoading] = useState(true);
 
@@ -22,7 +22,7 @@ const TaskDiv = ({ tasks }) => {
   // }, []);
 
   // if (loading) return <p>Loading tasks...</p>;
-  const completeHandler = async (taskId) => {
+  const completeHandlerpending = async (taskId) => {
     try {
       const response = await axios.patch(
         `http://127.0.0.1:8000/task/${taskId}/update/`,
@@ -32,8 +32,76 @@ const TaskDiv = ({ tasks }) => {
 
       console.log(response.data.message);
 
-      // Refresh the page or update the local state so the UI changes
-      window.location.reload();
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task.id === taskId ? { ...task, status: "COMPLETED" } : task,
+        ),
+      );
+      setStats((prevStats) => {
+        const newCompleted = (prevStats.completed || 0) + 1;
+        const newPending = (prevStats.pending || 0) - 1;
+        return {
+          ...prevStats,
+          completed: newCompleted,
+          pending: newPending >= 0 ? newPending : 0,
+        };
+      });
+    } catch (error) {
+      console.error("Failed to update task", error);
+    }
+  };
+  const completeHandlerinprogress = async (taskId) => {
+    try {
+      const response = await axios.patch(
+        `http://127.0.0.1:8000/task/${taskId}/update/`,
+        { status: "COMPLETED" }, // Data being sent
+        { withCredentials: true }, // Keeps you logged in
+      );
+
+      console.log(response.data.message);
+
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task.id === taskId ? { ...task, status: "COMPLETED" } : task,
+        ),
+      );
+      setStats((prevStats) => {
+        const newCompleted = (prevStats.completed || 0) + 1;
+        const newinprogress = (prevStats.inprogress || 0) - 1;
+        return {
+          ...prevStats,
+          completed: newCompleted,
+          inProgress: newinprogress >= 0 ? newinprogress : 0,
+        };
+      });
+    } catch (error) {
+      console.error("Failed to update task", error);
+    }
+  };
+  const inprogressHandler = async (taskId) => {
+    try {
+      const response = await axios.patch(
+        `http://127.0.0.1:8000/task/${taskId}/update/`,
+        { status: "IN_PROGRESS" }, // Data being sent
+        { withCredentials: true }, // Keeps you logged in
+      );
+
+      console.log(response.data.message);
+
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task.id === taskId ? { ...task, status: "IN_PROGRESS" } : task,
+        ),
+      );
+      setStats((prevStats) => {
+        const newinProgress = (prevStats.inProgress || 0) + 1;
+        const newPending = (prevStats.pending || 0) - 1;
+        return {
+          ...prevStats,
+          inProgress: newinProgress,
+          pending: newPending >= 0 ? newPending : 0,
+        };
+      });
     } catch (error) {
       console.error("Failed to update task", error);
     }
@@ -41,31 +109,34 @@ const TaskDiv = ({ tasks }) => {
 
 
   return (
-    <div className="taskdiv">
-      {tasks.map((task, key) => {
-        if (task.status !== "COMPLETED") {
-          return (
-            <div className="taskbox" key={key}>
-              <div className="uppermost">
-                <span
-                  className={`task-flag ${task.priority === "HIGH" ? "red-flag" : task.priority == "MEDIUM" ? "orange-flag" : "red-flag"}`}
-                >
-                  {task.priority}
-                </span>
-                <span className="due-date">Due date: {task.due_date}</span>
+    <>
+      <div className="taskdiv">
+        {tasks.map((task, key) => {
+          if (task.status !== "COMPLETED" && task.status !== "PENDING") {
+            return (
+              <div className="taskbox inprogress" key={key}>
+                <div className="uppermost">
+                  <span
+                    className={`task-flag ${task.priority === "HIGH" ? "red-flag" : task.priority == "MEDIUM" ? "orange-flag" : "green-flag"}`}
+                  >
+                    {task.priority}
+                  </span>
+                  <span className="inprogreessToaster">in progress!</span>
+                  <span className="due-date">Due date: {task.due_date}</span>
+                </div>
+                <h1>{task.title}</h1>
+                <p>{task.description}</p>
+                <div className="btn">
+                  <button onClick={() => completeHandlerinprogress(task.id)}>
+                    mark as complete
+                  </button>
+                </div>
               </div>
-              <h1>{task.title}</h1>
-              <p>{task.description}</p>
-              <div className="btn">
-                <button onClick={() => completeHandler(task.id)}>
-                  mark as complete
-                </button>
-              </div>
-            </div>
-          );
-        }
-      })}
-      {/* <div className="taskbox">
+            );
+          }
+        })}
+
+        {/* <div className="taskbox">
         <div className="uppermost">
           <span className="task-flag">high</span>
           <span className="due-date">Due date: 2024-05-15</span>
@@ -76,34 +147,68 @@ const TaskDiv = ({ tasks }) => {
           <button>mark as complete</button>
         </div>
       </div> */}
-      {tasks.map((task, key) => {
-        if (task.status === "COMPLETED") {
-          return (
-            <div className="taskbox completed" key={key}>
-              <div className="uppermost">
-                <span
-                  className={`task-flag ${task.priority === "HIGH" ? "red-flag" : task.priority == "MEDIUM" ? "orange-flag" : "red-flag"}`}
-                >
-                  {task.priority}
-                </span>
-                <span className="due-date">Due date: {task.due_date}</span>
+      </div>
+      <div className="taskdiv">
+        {tasks.map((task, key) => {
+          if (task.status !== "COMPLETED" && task.status !== "IN_PROGRESS") {
+            return (
+              <div className="taskbox pending" key={key}>
+                <div className="uppermost">
+                  <span
+                    className={`task-flag ${task.priority === "HIGH" ? "red-flag" : task.priority == "MEDIUM" ? "orange-flag" : "green-flag"}`}
+                  >
+                    {task.priority}
+                  </span>
+                  {/* <span>in Progress</span> */}
+                  <span className="due-date">Due date: {task.due_date}</span>
+                </div>
+                <h1>{task.title}</h1>
+                <p>{task.description}</p>
+                <div className="btn">
+                  <button onClick={() => completeHandlerpending(task.id)}>
+                    mark as complete
+                  </button>
+                  <button onClick={() => inprogressHandler(task.id)}>
+                    mark as in Progress
+                  </button>
+                </div>
               </div>
-              <h1>{task.title}</h1>
-              <p>{task.description}</p>
-              <div className="btn">
-                <button
-                  style={{ backgroundColor: "green" }}
-                  disabled
-                  onClick={() => completeHandler(task.id)}
-                >
-                  completed
-                </button>
+            );
+          }
+        })}
+      </div>
+      <div className="taskdiv">
+        {tasks.map((task, key) => {
+          if (task.status !== "PENDING" && task.status !== "IN_PROGRESS") {
+            return (
+              <div className="taskbox completed" key={key}>
+                <div className="uppermost">
+                  <span
+                    className={`task-flag ${task.priority === "HIGH" ? "red-flag" : task.priority == "MEDIUM" ? "orange-flag" : "green-flag"}`}
+                  >
+                    {task.priority}
+                  </span>
+                  <span className="completedToaster">completed!</span>
+
+                  <span className="due-date">Due date: {task.due_date}</span>
+                </div>
+                <h1>{task.title}</h1>
+                <p>{task.description}</p>
+                <div className="btn">
+                  <button
+                    style={{ backgroundColor: "green" }}
+                    disabled
+                    onClick={() => completeHandler(task.id)}
+                  >
+                    completed
+                  </button>
+                </div>
               </div>
-            </div>
-          );
-        }
-      })}
-    </div>
+            );
+          }
+        })}
+      </div>
+    </>
   );
 };
 
