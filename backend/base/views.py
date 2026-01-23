@@ -93,7 +93,7 @@ def updateTaskStatus(request, pk):
     if newStatus:
         task.status = newStatus
         task.save()
-        return Response({"message": f"Task {pk} is now {newStatus}"})    
+        return Response({"message": f"Task {pk} is now {newStatus}"})
     return Response({"error": "No status provided"}, status=400)
 
 @csrf_exempt
