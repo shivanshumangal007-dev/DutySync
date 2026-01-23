@@ -8,6 +8,7 @@ from .serializers import TaskSerializer
 from .models import Task
 from django.contrib.auth import authenticate, login
 from django.views.decorators.csrf import csrf_exempt
+from rest_framework.response import Response
 
 
 @csrf_exempt    
@@ -48,16 +49,35 @@ class TaskView(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        
-        # Check if the user is actually logged in
         if user.is_authenticated:
-            # If yes, return only the tasks assigned to them
             return Task.objects.filter(assigned_to=user)
-        
-        # If no (AnonymousUser), return an empty list []
-        # This prevents the "Field 'id' expected a number" crash
         return Task.objects.none()
+
+    def list(self, request, *args, **kwargs):
+        # 1. Get the original task list data
+        queryset = self.get_queryset()
+        serializer = self.get_serializer(queryset, many=True)
+        
+        # 2. Calculate the stats (only if user is logged in)
+        user = request.user
+        stats = {
+            "completed": 0,
+            "pending": 0,
+            "inProgress": 0
+        }
+        
+        if user.is_authenticated:
+            stats["completed"] = queryset.filter(status="COMPLETED").count()
+            stats["pending"] = queryset.filter(status="PENDING").count()
+            stats["inProgress"] = queryset.filter(status="IN_PROGRESS").count()
+
+        # 3. Combine everything into one response
+        return Response({
+            "tasks": serializer.data,
+            "stats": stats
+        })
     
+
 @csrf_exempt
 def who_am_i(request):
     return JsonResponse({
