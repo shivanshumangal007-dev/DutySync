@@ -5,6 +5,7 @@ import { Navigate, useNavigate } from "react-router-dom";
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  // const [username, setUsername] = useState("");
   const [tasks, setTasks] = useState([]);
   const navigate = useNavigate();
   const formhandler = async (e) => {
@@ -30,7 +31,7 @@ const Login = () => {
       );
 
       console.log("Login Success:", response.data);
-
+      // setUsername(response.data.userDetails.username);
       // setTasks(response.data.tasks || []);
       navigate("/employee/dashboard");
     } catch (error) {

@@ -31,7 +31,7 @@ const TaskDiv = () => {
       {tasks.map((task, key) => (
         <div className="taskbox" key={key}>
           <div className="uppermost">
-            <span className="task-flag">high</span>
+            <span className="task-flag">{task.priority}</span>
             <span className="due-date">Due date: {task.due_date}</span>
           </div>
           <h1>{task.title}</h1>
