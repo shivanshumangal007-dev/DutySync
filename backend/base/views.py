@@ -9,7 +9,14 @@ from .models import Task
 from django.contrib.auth import authenticate, login
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes, authentication_classes# Add this import
+from rest_framework.permissions import AllowAny
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.authentication import SessionAuthentication
+
+class CsrfExemptSessionAuthentication(SessionAuthentication):
+    def enforce_csrf(self, request):
+        return
 
 @csrf_exempt    
 def login_api(request):
@@ -85,11 +92,12 @@ class TaskView(generics.ListAPIView):
         })
     
 
-@csrf_exempt  # <--- ADD THIS LINE HERE
+@api_view(['PATCH'])
+@authentication_classes([CsrfExemptSessionAuthentication])
+@permission_classes([IsAuthenticated])
 def updateTaskStatus(request, pk):
 
     task = get_object_or_404(Task, id = pk, assigned_to=request.user)
-
     newStatus = request.data.get("status")
 
     if newStatus:
@@ -97,6 +105,7 @@ def updateTaskStatus(request, pk):
         task.save()
         return Response({"message": f"Task {pk} is now {newStatus}"})
     return Response({"error": "No status provided"}, status=400)
+
 
 @csrf_exempt
 def who_am_i(request):
