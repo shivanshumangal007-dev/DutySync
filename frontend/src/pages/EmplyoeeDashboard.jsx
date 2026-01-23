@@ -7,7 +7,6 @@ const EmplyoeeDashboard = () => {
   const [name, setName] = useState("");
   const [task, setTasks] = useState([]);
   const [stats, setStats] = useState({});
-  // useState
   useEffect(() => {
     async function getData() {
       // let response;

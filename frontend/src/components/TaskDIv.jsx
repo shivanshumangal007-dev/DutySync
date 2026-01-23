@@ -23,6 +23,23 @@ const TaskDiv = ({ tasks }) => {
 
   // if (loading) return <p>Loading tasks...</p>;
 
+  const completeHandler = async (taskId) => {
+    try {
+        const response = await axios.patch(
+            `http://127.0.0.1:8000/task/${taskId}/update/`,
+            { status: "COMPLETED" }, // Data being sent
+            { withCredentials: true } // Keeps you logged in
+        );
+
+        console.log(response.data.message);
+
+        // Refresh the page or update the local state so the UI changes
+        window.location.reload(); 
+    } catch (error) {
+        console.error("Failed to update task", error);
+    }
+  }
+
   return (
     <div className="taskdiv">
       {tasks.map((task, key) => (
@@ -34,7 +51,7 @@ const TaskDiv = ({ tasks }) => {
           <h1>{task.title}</h1>
           <p>{task.description}</p>
           <div className="btn">
-            <button>mark as complete</button>
+            <button onClick={() => completeHandler(task.id)}>mark as complete</button>
           </div>
         </div>
       ))}
