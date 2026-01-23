@@ -27,14 +27,25 @@ const TaskDiv = () => {
 
   return (
     <div className="taskdiv">
-      {tasks.map((task) => (
+      {/* {tasks.map((task) => (
         <div className="taskbox">
           <h1>{task.title}</h1>
           <p>
             {task.description}
           </p>
         </div>
-      ))}
+      ))} */}
+      <div className="taskbox">
+        <div className="uppermost">
+          <span className="task-flag">high</span>
+          <span className="due-date">Due date: 2024-05-15</span>
+        </div>
+        <h1>heading</h1>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rerum earum aut at, hic fugit numquam!</p>
+        <div className="btn">
+          <button>mark as complete</button>
+        </div>
+      </div>
     </div>
   );
 };
