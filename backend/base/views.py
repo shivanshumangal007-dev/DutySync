@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from rest_framework import generics
 from .serializers import TaskSerializer
 from .models import Task
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes, authentication_classes# Add this import
@@ -106,6 +106,11 @@ def updateTaskStatus(request, pk):
         return Response({"message": f"Task {pk} is now {newStatus}"})
     return Response({"error": "No status provided"}, status=400)
 
+@csrf_exempt
+def logoutUser(request):
+
+    logout(request)
+    return JsonResponse({"status": "success", "message": "Logged out successfully"})
 
 @csrf_exempt
 def who_am_i(request):
