@@ -2,13 +2,15 @@ import React, { useEffect, useState } from "react";
 import TaskDiv from "../components/TaskDIv";
 import TaskData from "../components/TaskData";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
+
+import { useNavigate } from "react-router-dom";
 
 const EmplyoeeDashboard = () => {
   const [name, setName] = useState("");
   const [task, setTasks] = useState([]);
   const [stats, setStats] = useState({});
   const navigate = useNavigate();
+
   useEffect(() => {
     async function getData() {
       // let response;
@@ -28,32 +30,32 @@ const EmplyoeeDashboard = () => {
         console.log("error infetching data", error);
       }
     }
-    
+
     getData();
   }, []);
-    const logoutHandler = async () => {
-      try {
-        const response = await axios.post(
-          `http://127.0.0.1:8000/logout/`,
-          {},
-          { withCredentials: true },
-        );
+  const logoutHandler = async () => {
+    try {
+      const response = await axios.post(
+        `http://127.0.0.1:8000/logout/`,
+        {},
+        { withCredentials: true },
+      );
 
-        console.log(response.data.message);
+      console.log(response.data.message);
 
-        // Refresh the page or update the local state so the UI changes
+      // Refresh the page or update the local state so the UI changes
+      localStorage.clear();
+      navigate("/");
+    } catch (error) {
+      console.error("Failed to logout: ", error);
+    }
+  };
 
-        navigate("/login");
-      } catch (error) {
-        console.error("Failed to update task", error);
-      }
-    };
-  
   return (
     <div className="employeeMainDiv">
       <nav>
         <h1>
-          Duty<span style={{color : "#2b124c"}}>Sync</span>
+          Duty<span style={{ color: "#2b124c" }}>Sync</span>
         </h1>
 
         <div className="navright">

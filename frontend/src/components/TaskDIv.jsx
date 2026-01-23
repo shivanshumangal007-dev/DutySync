@@ -22,7 +22,6 @@ const TaskDiv = ({ tasks }) => {
   // }, []);
 
   // if (loading) return <p>Loading tasks...</p>;
-  const navigate = useNavigate();
   const completeHandler = async (taskId) => {
     try {
       const response = await axios.patch(
