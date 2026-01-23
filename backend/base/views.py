@@ -65,6 +65,11 @@ class TaskView(generics.ListAPIView):
             "pending": 0,
             "inProgress": 0
         }
+
+        userDetails = {
+            "username": user.username,
+            "email": user.email,
+        }
         
         if user.is_authenticated:
             stats["completed"] = queryset.filter(status="COMPLETED").count()
@@ -74,8 +79,11 @@ class TaskView(generics.ListAPIView):
         # 3. Combine everything into one response
         return Response({
             "tasks": serializer.data,
-            "stats": stats
+            "stats": stats,
+            "userDetails":userDetails
         })
+    
+        
     
 
 @csrf_exempt
