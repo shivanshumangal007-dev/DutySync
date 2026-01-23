@@ -9,7 +9,7 @@ from .models import Task
 from django.contrib.auth import authenticate, login
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.response import Response
-
+from rest_framework.decorators import api_view
 
 @csrf_exempt    
 def login_api(request):
@@ -84,6 +84,10 @@ class TaskView(generics.ListAPIView):
             "userDetails":userDetails
         })
     
+
+@csrf_exempt  # <--- ADD THIS LINE HERE
+@api_view(['PATCH'])
+
 def updateTaskStatus(request, pk):
 
     task = get_object_or_404(Task, id = pk, assigned_to=request.user)
