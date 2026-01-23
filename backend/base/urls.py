@@ -6,4 +6,5 @@ urlpatterns = [
     path('task/', views.TaskView.as_view()),
     path('whoami/', views.who_am_i),
     path('task/<int:pk>/update/', views.updateTaskStatus),
+    path('logout/', views.login_api, name="logout"),
 ]
