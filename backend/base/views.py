@@ -108,9 +108,11 @@ def updateTaskStatus(request, pk):
 
 @csrf_exempt
 def logoutUser(request):
-
     logout(request)
-    return JsonResponse({"status": "success", "message": "Logged out successfully"})
+    return JsonResponse({
+        "status": "success",
+        "message": "Logged out successfully"
+    })
 
 @csrf_exempt
 def who_am_i(request):
