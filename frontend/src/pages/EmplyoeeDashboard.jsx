@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import TaskDiv from "../components/TaskDIv";
 import TaskData from "../components/TaskData";
 import axios from "axios";
+import {useNavigate} from "react-router-dom";
 
 const EmplyoeeDashboard = () => {
   const [name, setName] = useState("");
   const [task, setTasks] = useState([]);
   const [stats, setStats] = useState({});
+  const navigate = useNavigate();
   useEffect(() => {
     async function getData() {
       // let response;
@@ -32,7 +34,7 @@ const EmplyoeeDashboard = () => {
     const logoutHandler = async () => {
       try {
         const response = await axios.post(
-          `http://127.0.0.1:8000/logout`,
+          `http://127.0.0.1:8000/logout/`,
           {},
           { withCredentials: true },
         );
