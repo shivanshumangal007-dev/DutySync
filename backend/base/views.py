@@ -13,6 +13,8 @@ from rest_framework.decorators import api_view, permission_classes, authenticati
 from rest_framework.permissions import AllowAny
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication
+from django.utils import timezone
+from datetime import timedelta
 
 class CsrfExemptSessionAuthentication(SessionAuthentication):
     def enforce_csrf(self, request):
@@ -102,9 +104,16 @@ def updateTaskStatus(request, pk):
 
     if newStatus:
         task.status = newStatus
+
+        if newStatus == "COMPLETED":
+            task.completed_at = timezone.now()
+        else:
+            task.completed_at = None
         task.save()
+
         return Response({"message": f"Task {pk} is now {newStatus}"})
     return Response({"error": "No status provided"}, status=400)
+
 
 @csrf_exempt
 def logoutUser(request):

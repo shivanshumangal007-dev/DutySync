@@ -179,7 +179,7 @@ const TaskDiv = ({ tasks, setTasks, setStats }) => {
       </div>
       <div className="taskdiv">
         {tasks.map((task, key) => {
-          if (task.status !== "PENDING" && task.status !== "IN_PROGRESS") {
+          if (task.status !== "PENDING" && task.status !== "IN_PROGRESS" ) {
             return (
               <div className="taskbox completed" key={key}>
                 <div className="uppermost">

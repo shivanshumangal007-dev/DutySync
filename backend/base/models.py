@@ -25,7 +25,8 @@ class Task(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     due_date = models.DateTimeField(null=True, blank=True)
     priority = models.CharField(max_length=20, choices=PRIORITY_CHOICES, default='MEDIUM')
-
+    completed_at = models.DateField(null=True,blank=True)
+    hidden = models.BooleanField(default=False)
 
     def __str__(self):
         return self.title
