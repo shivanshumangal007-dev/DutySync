@@ -1,11 +1,40 @@
-import React from 'react'
-import TaskDiv from '../components/TaskDIv';
-import TaskData from '../components/TaskData';
+import React, { useEffect, useState } from "react";
+import TaskDiv from "../components/TaskDIv";
+import TaskData from "../components/TaskData";
+import axios from "axios";
 
 const EmplyoeeDashboard = () => {
+  const [name, setName] = useState("");
+  const [task, setTasks] = useState([]);
+  const [stats, setStats] = useState({});
+  // useState
+  useEffect(() => {
+    async function getData() {
+      // let response;
+      try {
+        const response = await axios.get("http://127.0.0.1:8000/task/", {
+          withCredentials: true,
+        });
+
+        // console.log(response.data.userDetails.username);
+        setName(response.data.userDetails.username);
+        setTasks(response.data.tasks);
+        setStats(response.data.stats);
+
+        // console.log(name);
+        // console.log(task);
+      } catch (error) {
+        console.log("error infetching data", error);
+      }
+    }
+    
+    getData();
+  }, []);
+  
   return (
     <div className="employeeMainDiv">
-      <h1>hello, rohit 👋</h1>
+      <h1>hello, {name}👋</h1>
+      {/* {console.log(name, task, stats)} */}
 
       {/* <div className="tasksData">
         <div className="taskInfo">
@@ -24,13 +53,13 @@ const EmplyoeeDashboard = () => {
           <h1>40%</h1>
           <h2>progress</h2>
         </div>
-      </div> */}
-      <TaskData/>
+      // </div> */}
+      <TaskData stats = {stats}/>
 
 
-      <TaskDiv/>
+      <TaskDiv tasks = {task}/>
     </div>
   );
-}
+};
 
-export default EmplyoeeDashboard
+export default EmplyoeeDashboard;

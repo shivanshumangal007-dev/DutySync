@@ -1,30 +1,27 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const TaskDiv = () => {
-  const [tasks, setTasks] = useState([]);
-  const [loading, setLoading] = useState(true);
+const TaskDiv = ({ tasks }) => {
+  // const [task, setTasks] = useState([]);
+  // const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        // The URL of your Django TaskView
-        const response = await axios.get("http://127.0.0.1:8000/task/", {
-          withCredentials: true,
-        });
-        setTasks(response.data.tasks);
-        // console.log("Fetched tasks:", response.data.tasks);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching tasks:", error);
-        setLoading(false);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchTasks = async () => {
+  //     try {
+  //       // The URL of your Django TaskView
+  //       setTasks(tasks);
+  //       // console.log("Fetched tasks:", response.data.tasks);
+  //       setLoading(false);
+  //     } catch (error) {
+  //       console.error("Error fetching tasks:", error);
+  //       setLoading(false);
+  //     }
+  //   };
 
-    fetchTasks();
-  }, []);
+  //   fetchTasks();
+  // }, []);
 
-  if (loading) return <p>Loading tasks...</p>;
+  // if (loading) return <p>Loading tasks...</p>;
 
   return (
     <div className="taskdiv">
