@@ -86,8 +86,6 @@ class TaskView(generics.ListAPIView):
     
 
 @csrf_exempt  # <--- ADD THIS LINE HERE
-@api_view(['PATCH'])
-
 def updateTaskStatus(request, pk):
 
     task = get_object_or_404(Task, id = pk, assigned_to=request.user)
