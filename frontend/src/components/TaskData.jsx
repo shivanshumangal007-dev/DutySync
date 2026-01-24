@@ -7,7 +7,7 @@ const TaskData = ({ stats = {} }) => {
 
   const percentage =
     completed + pending > 0
-      ? Math.round((completed / (completed + pending)) * 100)
+      ? Math.round((completed / (completed + pending + inProgress)) * 100)
       : 0;
 
   return (
