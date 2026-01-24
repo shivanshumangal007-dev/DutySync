@@ -58,10 +58,20 @@ class TaskView(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        if user.is_authenticated:
-            return Task.objects.filter(assigned_to=user)
-        return Task.objects.none()
-    
+        if not user.is_authenticated:
+            return Task.objects.none()
+
+        # 1. Define the cutoff (20 seconds ago)
+        cutoff_date = timezone.now() - timedelta(days=1)
+
+        Task.objects.filter(
+            assigned_to=user,
+            status='COMPLETED',
+            completed_at__lt=cutoff_date  # 'lt' means "older than"
+        ).update(hidden=True, status="REMOVED") 
+
+        return Task.objects.filter(assigned_to=user)
+        
 
     def list(self, request, *args, **kwargs):
         # 1. Get the original task list data
