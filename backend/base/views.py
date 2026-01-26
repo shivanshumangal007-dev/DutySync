@@ -19,6 +19,47 @@ from datetime import timedelta
 class CsrfExemptSessionAuthentication(SessionAuthentication):
     def enforce_csrf(self, request):
         return
+    
+@csrf_exempt
+def newTask(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            title = data.get("title")
+            description = data.get("description")
+            status = data.get("status")
+            assigned_to = data.get("assigned_to")
+            due_date = data.get("due_date")
+            priority = data.get("priority")
+
+            obj = Task.objects.create(
+                title = title,
+                description = description,
+                status = status,
+                assigned_to = assigned_to,
+                due_date = due_date,
+                priority = priority,
+            )
+            return JsonResponse({
+
+                "status": "success",
+
+                "message": "Data saved successfully"
+
+            })
+        except Exception as e:
+            return JsonResponse({
+
+                "status": "error",
+
+                "message": str(e)
+
+            })
+
+    return JsonResponse({"error": "Only POST allowed"})
+
+
+
 
 @csrf_exempt    
 def login_api(request):
@@ -102,6 +143,8 @@ class TaskView(generics.ListAPIView):
             "stats": stats,
             "userDetails":userDetails
         })
+    
+
     
 
 @api_view(['PATCH'])
