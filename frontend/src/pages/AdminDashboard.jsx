@@ -6,12 +6,12 @@ const AdminDashboard = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [status, setStatus] = useState("Pending");
-  const [assigned_to, setAssignedTo] = useState("");
+  const [assigned_to, setAssignedTo] = useState('');
   const [due_date, setDueDate] = useState("");
   const [priority, setPriority] = useState("");
 
   // ✅ Submit Handler
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
 
@@ -26,7 +26,7 @@ const AdminDashboard = () => {
     };
 
     try {
-        const response = axios.post("http://127.0.0.1:8000/admin_/newTask", taskData, {
+        const response =  await axios.post("http://127.0.0.1:8000/admin_/newTask", taskData, {
           withCredentials: true,
         });
         console.log(response);
@@ -107,7 +107,7 @@ const AdminDashboard = () => {
               focus:ring-2 focus:ring-pink-400 outline-none"
             >
               <option value="">Select Employee</option>
-              <option value="EMP001">EMP001</option>
+              <option value="shivanshu">shivanshu</option>
               <option value="EMP002">EMP002</option>
               <option value="EMP003">EMP003</option>
               <option value="shivanshu">shivanshu</option>
