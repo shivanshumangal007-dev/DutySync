@@ -16,6 +16,7 @@ class TaskSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 class AllUsers(serializers.ModelSerializer):
+    isAdmin = serializers.BooleanField(source='profile.isAdmin', read_only=True)
     class Meta:
         model = User
-        fields = ['id', 'username']
+        fields = ['id', 'username', 'isAdmin']
