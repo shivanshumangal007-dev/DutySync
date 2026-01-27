@@ -19,6 +19,47 @@ from datetime import timedelta
 class CsrfExemptSessionAuthentication(SessionAuthentication):
     def enforce_csrf(self, request):
         return
+    
+@csrf_exempt
+def newTask(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            title = data.get("title")
+            description = data.get("description")
+            status = data.get("status")
+            assigned_to = data.get("assigned_to")
+            due_date = data.get("due_date")
+            priority = data.get("priority")
+
+            obj = Task.objects.create(
+                title = title,
+                description = description,
+                status = status,
+                assigned_to = assigned_to,
+                due_date = due_date,
+                priority = priority,
+            )
+            return JsonResponse({
+
+                "status": "success",
+
+                "message": "Data saved successfully"
+
+            })
+        except Exception as e:
+            return JsonResponse({
+
+                "status": "error",
+
+                "message": str(e)
+
+            })
+
+    return JsonResponse({"error": "Only POST allowed"})
+
+
+
 
 @csrf_exempt    
 def login_api(request):
@@ -58,10 +99,20 @@ class TaskView(generics.ListAPIView):
 
     def get_queryset(self):
         user = self.request.user
-        if user.is_authenticated:
-            return Task.objects.filter(assigned_to=user)
-        return Task.objects.none()
-    
+        if not user.is_authenticated:
+            return Task.objects.none()
+
+        # 1. Define the cutoff (20 seconds ago)
+        cutoff_date = timezone.now() - timedelta(days=1)
+
+        Task.objects.filter(
+            assigned_to=user,
+            status='COMPLETED',
+            completed_at__lt=cutoff_date  # 'lt' means "older than"
+        ).update(hidden=True, status="REMOVED") 
+
+        return Task.objects.filter(assigned_to=user)
+        
 
     def list(self, request, *args, **kwargs):
         # 1. Get the original task list data
@@ -92,6 +143,8 @@ class TaskView(generics.ListAPIView):
             "stats": stats,
             "userDetails":userDetails
         })
+    
+
     
 
 @api_view(['PATCH'])

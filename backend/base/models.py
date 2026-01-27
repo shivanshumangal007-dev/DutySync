@@ -11,6 +11,7 @@ class Task(models.Model):
         ('PENDING', 'Pending'),
         ('IN_PROGRESS', 'In Progress'),
         ('COMPLETED', 'Completed'),
+        ('REMOVED', 'Removed')
     ]
     PRIORITY_CHOICES = [
         ('HIGH', 'high'),
