@@ -1,5 +1,5 @@
 from django.http import JsonResponse
-from .models import Login
+from .models import Login, Profile
 from django.views.decorators.csrf import csrf_exempt
 import json
 from django.shortcuts import render, redirect, get_object_or_404
@@ -122,9 +122,10 @@ class TaskView(generics.ListAPIView):
         serializer = self.get_serializer(queryset, many=True)
         queryset2 = User.objects.all()
         serializer2 = AllUsers(queryset2, many=True)
-        
         # 2. Calculate the stats (only if user is logged in)
         user = request.user
+        isAdmin = getattr(user.profile, 'isAdmin', False) if user.is_authenticated else False
+
         stats = {
             "completed": 0,
             "pending": 0,
@@ -134,6 +135,7 @@ class TaskView(generics.ListAPIView):
         userDetails = {
             "username": user.username,
             "email": user.email,
+            'isAdmin': isAdmin
         }
         
         if user.is_authenticated:
