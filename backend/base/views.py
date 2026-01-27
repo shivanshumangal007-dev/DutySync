@@ -27,15 +27,13 @@ def newTask(request):
             data = json.loads(request.body)
             title = data.get("title")
             description = data.get("description")
-            status = data.get("status")
             assigned_to = data.get("assigned_to")
             due_date = data.get("due_date")
-            priority = data.get("priority")
+            priority = data.get("priority") 
 
             obj = Task.objects.create(
                 title = title,
                 description = description,
-                status = status,
                 assigned_to = assigned_to,
                 due_date = due_date,
                 priority = priority,
