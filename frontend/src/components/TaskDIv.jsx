@@ -1,6 +1,7 @@
-import React, { use, useEffect, useState } from "react";
+import React, { use, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import {useNavigate} from "react-router-dom";
+import gsap from "gsap";
 const TaskDiv = ({ tasks, setTasks, setStats }) => {
   // const [task, setTasks] = useState([]);
   // const [loading, setLoading] = useState(true);
@@ -22,6 +23,8 @@ const TaskDiv = ({ tasks, setTasks, setStats }) => {
   // }, []);
 
   // if (loading) return <p>Loading tasks...</p>;
+
+  const taskdivref = useRef();
   const completeHandlerpending = async (taskId) => {
     try {
       const response = await axios.patch(
@@ -106,11 +109,29 @@ const TaskDiv = ({ tasks, setTasks, setStats }) => {
       console.error("Failed to update task", error);
     }
   };
-
+  useEffect(() => {
+    const preloader = () => {
+      const ctx = gsap.context(() => {
+        gsap.from(taskdivref.current.children, {
+          duration: 1,
+          x: "-100%",
+          opacity: 0,
+          ease: "power2.out",
+          stagger: 0.2,
+          delay: 0.5,
+        });
+        // console.log(taskdivref.current);
+      });
+      return () => {
+        ctx.revert();
+      };
+    };
+    return preloader();
+  }, []);
 
   return (
-    <>
-      <div className="taskdiv">
+    <div ref={taskdivref}>
+      <div className="taskdiv" >
         {tasks.map((task, key) => {
           if (task.status !== "COMPLETED" && task.status !== "PENDING") {
             return (
@@ -148,7 +169,7 @@ const TaskDiv = ({ tasks, setTasks, setStats }) => {
         </div>
       </div> */}
       </div>
-      <div className="taskdiv">
+      <div className="taskdiv" >
         {tasks.map((task, key) => {
           if (task.status !== "COMPLETED" && task.status !== "IN_PROGRESS") {
             return (
@@ -177,7 +198,7 @@ const TaskDiv = ({ tasks, setTasks, setStats }) => {
           }
         })}
       </div>
-      <div className="taskdiv">
+      <div className="taskdiv" >
         {tasks.map((task, key) => {
           if (task.status !== "PENDING" && task.status !== "IN_PROGRESS" ) {
             return (
@@ -196,7 +217,7 @@ const TaskDiv = ({ tasks, setTasks, setStats }) => {
                 <p>{task.description}</p>
                 <div className="btn">
                   <button
-                    style={{ backgroundColor: "green" }}
+                    style={{ backgroundColor: "green", cursor: "not-allowed" }}
                     disabled
                     onClick={() => completeHandler(task.id)}
                   >
@@ -208,7 +229,7 @@ const TaskDiv = ({ tasks, setTasks, setStats }) => {
           }
         })}
       </div>
-    </>
+    </div>
   );
 };
 

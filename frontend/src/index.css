@@ -265,7 +265,7 @@ body {
   gap: 1vw;
   overflow-y: auto;
   /* background-color: #2b124c; */
-  padding: 3rem 1rem;
+  padding: 2rem 1rem;
 }
 .taskdiv::-webkit-scrollbar {
   display: none;

@@ -1,6 +1,30 @@
 import axios from "axios";
+import gsap from "gsap";
+import { useEffect, useRef } from "react";
 
 const TaskData = ({ stats = {} }) => {
+  const taskDataRef = useRef();
+
+  useEffect(() => {
+    const preloader = () => {
+      const ctx = gsap.context(() => {
+        gsap.from(taskDataRef.current.children, {
+          duration: 1,
+          x: "-100%",
+          opacity: 0,
+          ease: "power2.out",
+          stagger: 0.2,
+          delay: 0.5,
+        });
+        // console.log(taskDataRef.current);
+      });
+      return () => {
+        ctx.revert();
+      };
+    };
+    return preloader();
+  }, []);
+
   const completed = stats.completed || 0;
   const pending = stats.pending || 0;
   const inProgress = stats.inProgress || 0;
@@ -11,7 +35,7 @@ const TaskData = ({ stats = {} }) => {
       : 0;
 
   return (
-    <div className="tasksData">
+    <div className="tasksData" ref={taskDataRef}>
       <div className="taskInfo">
         <h1>{completed}</h1>
         <h2>completed</h2>
@@ -34,6 +58,5 @@ const TaskData = ({ stats = {} }) => {
     </div>
   );
 };
-
 
 export default TaskData;
