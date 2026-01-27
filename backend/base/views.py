@@ -4,7 +4,7 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from django.shortcuts import render, redirect, get_object_or_404
 from rest_framework import generics
-from .serializers import TaskSerializer
+from .serializers import TaskSerializer, AllUsers
 from .models import Task
 from django.contrib.auth import authenticate, login, logout
 from django.views.decorators.csrf import csrf_exempt
@@ -19,6 +19,8 @@ from datetime import timedelta
 class CsrfExemptSessionAuthentication(SessionAuthentication):
     def enforce_csrf(self, request):
         return
+    
+
     
 @csrf_exempt
 def newTask(request):
@@ -116,6 +118,8 @@ class TaskView(generics.ListAPIView):
         # 1. Get the original task list data
         queryset = self.get_queryset()
         serializer = self.get_serializer(queryset, many=True)
+        queryset2 = User.objects.all()
+        serializer2 = AllUsers(queryset2, many=True)
         
         # 2. Calculate the stats (only if user is logged in)
         user = request.user
@@ -139,7 +143,8 @@ class TaskView(generics.ListAPIView):
         return Response({
             "tasks": serializer.data,
             "stats": stats,
-            "userDetails":userDetails
+            "userDetails":userDetails,
+            "AllUsers":serializer2.data
         })
     
 
