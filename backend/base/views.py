@@ -33,7 +33,7 @@ def newTask(request):
             description = data.get("description")
             assignee_name = data.get("assigned_to")
             due_date = data.get("due_date")
-            priority = data.get("priority") 
+            priority = data.get("priority")
             user_instance = User.objects.get(username=assignee_name)
             obj = Task.objects.create(
                 title = title,
