@@ -1,6 +1,5 @@
 import React, { use, useEffect, useRef, useState } from "react";
 import axios from "axios";
-import {useNavigate} from "react-router-dom";
 import gsap from "gsap";
 const TaskDiv = ({ tasks, setTasks, setStats }) => {
   // const [task, setTasks] = useState([]);
@@ -57,8 +56,8 @@ const TaskDiv = ({ tasks, setTasks, setStats }) => {
     try {
       const response = await axios.patch(
         `http://127.0.0.1:8000/task/${taskId}/update/`,
-        { status: "COMPLETED" }, // Data being sent
-        { withCredentials: true }, // Keeps you logged in
+        { status: "COMPLETED" }, 
+        { withCredentials: true }, 
       );
 
       console.log(response.data.message);

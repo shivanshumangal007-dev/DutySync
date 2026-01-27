@@ -23,14 +23,10 @@ const EmplyoeeDashboard = () => {
         const response = await axios.get("http://127.0.0.1:8000/task/", {
           withCredentials: true,
         });
-
-        // console.log(response.data.userDetails.username);
+        
         setName(response.data.userDetails.username);
         setTasks(response.data.tasks);
         setStats(response.data.stats);
-
-        // console.log(name);
-        // console.log(task);
       } catch (error) {
         console.log("error infetching data", error);
       }
