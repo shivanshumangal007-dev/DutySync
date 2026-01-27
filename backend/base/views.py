@@ -15,6 +15,8 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import SessionAuthentication
 from django.utils import timezone
 from datetime import timedelta
+from django.contrib.auth.models import User
+
 
 class CsrfExemptSessionAuthentication(SessionAuthentication):
     def enforce_csrf(self, request):
@@ -29,14 +31,14 @@ def newTask(request):
             data = json.loads(request.body)
             title = data.get("title")
             description = data.get("description")
-            assigned_to = data.get("assigned_to")
+            assignee_name = data.get("assigned_to")
             due_date = data.get("due_date")
             priority = data.get("priority") 
-
+            user_instance = User.objects.get(username=assignee_name)
             obj = Task.objects.create(
                 title = title,
                 description = description,
-                assigned_to = assigned_to,
+                assigned_to = user_instance,
                 due_date = due_date,
                 priority = priority,
             )

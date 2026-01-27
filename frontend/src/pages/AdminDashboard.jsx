@@ -29,7 +29,7 @@ const AdminDashboard = () => {
         const response = axios.post("http://127.0.0.1:8000/admin_/newTask", taskData, {
           withCredentials: true,
         });
-        console.log(response.data);
+        console.log(response);
         console.log("Task Created:", taskData);
     } catch (error) {
         console.log(error, "error in creating task");
@@ -110,7 +110,7 @@ const AdminDashboard = () => {
               <option value="EMP001">EMP001</option>
               <option value="EMP002">EMP002</option>
               <option value="EMP003">EMP003</option>
-              <option value="EMP004">EMP004</option>
+              <option value="shivanshu">shivanshu</option>
             </select>
           </div>
 
