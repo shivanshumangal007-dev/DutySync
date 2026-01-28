@@ -144,12 +144,22 @@ class TaskView(generics.ListAPIView):
             stats["inProgress"] = queryset.filter(status="IN_PROGRESS").count()
 
         # 3. Combine everything into one response
-        return Response({
-            "tasks": serializer.data,
-            "stats": stats,
-            "userDetails":userDetails,
-            "AllUsers":serializer2.data
-        })
+
+        if isAdmin:
+            return Response({
+                "tasks": serializer.data,
+                "stats": stats,
+                "userDetails":userDetails,
+                "AllUsers":serializer2.data
+            })
+        else:
+            return Response({
+                "tasks": serializer.data,
+                "stats": stats,
+                "userDetails":userDetails,
+            })
+        
+        
     
 
     
