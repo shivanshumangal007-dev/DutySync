@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import "./AdminDashboard.css";
+import {Navigate, useNavigate} from 'react-router-dom';
 
 const AdminDashboard = () => {
   const [title, setTitle] = useState("");
@@ -9,6 +10,7 @@ const AdminDashboard = () => {
   const [assigned_to, setAssignedTo] = useState("");
   const [due_date, setDueDate] = useState("");
   const [priority, setPriority] = useState("");
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,6 +31,7 @@ const AdminDashboard = () => {
         { withCredentials: true },
       );
       console.log(response);
+      navigate('/admin/dashboard');
       alert("✅ Task Created Successfully!");
     } catch (error) {
       console.log(error, "error in creating task");

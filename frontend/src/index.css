@@ -378,7 +378,35 @@ span.due-date {
 .taskbox .btn button:nth-child(2) {
   background-color: rgb(255, 145, 0);
 }
+.admin_user_task{
+  padding: 2vw ;
+}
 .admin_user_task > h1{
   font-size:1.5vw;
   text-transform: capitalize;
+}
+
+.greeting{
+  display: flex;
+  justify-content: space-between;
+  padding: 1vw 2vw;
+  width: 100%;
+}
+
+.greeting button{
+  padding: 0.5vw 1vw;
+  background-color: var(--bg-4);
+  color: white;
+  border:  none;
+  border-radius: 10px;
+  font-size: 1vw;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.greeting button span{
+  font-size: 1.5vw;
 }
