@@ -34,7 +34,7 @@ const Login = () => {
       // setUsername(response.data.userDetails.username);
       // setTasks(response.data.tasks || []);
 
-      const responseIsAdmin = response.data.user.is_admin;
+      const responseIsAdmin = response.data.userDetail.isAdmin;
       // console.log("Is Admin:", responseIsAdmin);
       if(responseIsAdmin){
         navigate("/admin/dashboard");

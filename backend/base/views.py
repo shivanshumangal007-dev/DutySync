@@ -74,6 +74,7 @@ def login_api(request):
             # 1. Verify the credentials against the User database
             # Note: We use username=email because we're treating email as the unique ID
             user = authenticate(request, username=email, password=password)
+            isAdmin = getattr(user.profile, 'isAdmin', False) if user.is_authenticated else False
 
             if user is not None:
                 # 2. Start the session (this logs them in)
@@ -83,9 +84,9 @@ def login_api(request):
                 return JsonResponse({
                     "status": "success",
                     "message": "Login successful",
-                    "user": {
+                    "userDetail": {
                         "username": user.username,
-                        "is_admin": user.is_staff # Helps React decide which dashboard to show
+                        "isAdmin": isAdmin # Helps React decide which dashboard to show
                     }
                 })
             else:
