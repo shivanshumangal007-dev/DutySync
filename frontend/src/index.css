@@ -11,15 +11,14 @@
   --bg-5: #2b124c;
   --bg-6: #190019;
 }
-/* 
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   color: white;
   font-family: "Poppins", sans-serif;
-} */
-@import "tailwindcss";
+}
 
 html,
 body {

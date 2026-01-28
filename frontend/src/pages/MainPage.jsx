@@ -6,11 +6,11 @@ import AdminDashboard from './adminDashboard'
 const MainPage = () => {
   return (
     <div>
-      {/* <Loader/>
+      <Loader/>
 
-      <Login/> */}
+      <Login/>
 
-      <AdminDashboard/>
+      {/* <AdminDashboard/> */}
     </div>
   )
 }
