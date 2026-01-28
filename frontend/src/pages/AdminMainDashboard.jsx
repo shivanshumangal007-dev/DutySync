@@ -1,15 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import axios from "axios";
 
 const AdminMainDashboard = () => {
+  const [users, setUsers] = useState([]);
   useEffect(() => {
     const getData = async () => {
       try {
         const response = await axios.get("http://127.0.0.1:8000/task/", {
           withCredentials: true,
         });
-        console.log(response.data);
+        // console.log(response.data.AllUsers);
+        setUsers(response.data.AllUsers);
       } catch (error) {
         console.log("error infetching data", error);
       }
@@ -48,6 +50,54 @@ const AdminMainDashboard = () => {
           <button onClick={logoutHandler}>logout</button>
         </div>
       </nav>
+      {/* {console.log( "user from return console : ", users)} */}
+
+      {
+        users.map((user) => {
+            return (
+              <div className="admin_user_task">
+                <h1>task assigned to : {user.username}</h1>
+                <div className="taskdiv">
+                    {
+                        user.userTasks.map((task, key) => {
+                            return (
+                              <div
+                                className={`taskbox ${task.status === "COMPLETED" ? "completed" : task.status == "PENDING" ? "pending" : "inprogress"}`}
+                                key={key}
+                              >
+                                <div className="uppermost">
+                                  <span
+                                    className={`task-flag ${task.priority === "HIGH" ? "red-flag" : task.priority == "MEDIUM" ? "orange-flag" : "green-flag"}`}
+                                  >
+                                    {task.priority}
+                                  </span>
+                                  <span className="inprogreessToaster">
+                                    {task.status}
+                                  </span>
+                                  <span className="due-date">
+                                    Due date: {task.due_date}
+                                  </span>
+                                </div>
+                                <h1>{task.title}</h1>
+                                <p>{task.description}</p>
+                                <div className="btn">
+                                  <button
+                                    onClick={() =>
+                                      completeHandlerinprogress(task.id)
+                                    }
+                                  >
+                                    mark as complete
+                                  </button>
+                                </div>
+                              </div>
+                            );
+                        })
+                    }
+                </div>
+              </div>
+            );
+        })
+      }
     </>
   );
 };
