@@ -19,9 +19,10 @@ const App = () => {
           <Route path='/employee/dashboard' element={{/* <EmplyoeeDashboard/>}/>
         </Routes> */}
       <Routes>
-        <Route path='/' element={<MainPage/>}/>
-        <Route path='/employee/dashboard' element={<EmplyoeeDashboard/>}/>
-        <Route path='/admin/dashboard' element={<AdminMainDashboard/>}/>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/employee/dashboard" element={<EmplyoeeDashboard />} />
+        <Route path="/admin/dashboard" element={<AdminMainDashboard />} />
+        <Route path="/admin/addtask" element={<AdminDashboard />} />
       </Routes>
     </div>
   );

@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from "react";
-
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const AdminMainDashboard = () => {
   const [users, setUsers] = useState([]);
+  const [isAdmin, setisAdmin] = useState(false);
+  const navigate = useNavigate();
   useEffect(() => {
     const getData = async () => {
       try {
         const response = await axios.get("http://127.0.0.1:8000/task/", {
           withCredentials: true,
         });
-        // console.log(response.data.AllUsers);
+        // console.log(response.data.userDetails.isAdmin);
         setUsers(response.data.AllUsers);
+        setisAdmin(response.data.userDetails.isAdmin);
       } catch (error) {
         console.log("error infetching data", error);
       }
@@ -36,6 +39,15 @@ const AdminMainDashboard = () => {
       console.error("Failed to logout: ", error);
     }
   };
+
+  const addTaskHandler = () => {
+    if(isAdmin){
+      navigate("/admin/addtask");
+    }
+    else{
+      console.log("only admin can add task");
+    }
+  }
   return (
     <>
       <nav>
@@ -51,53 +63,56 @@ const AdminMainDashboard = () => {
         </div>
       </nav>
       {/* {console.log( "user from return console : ", users)} */}
-
-      {
-        users.map((user) => {
-            return (
-              <div className="admin_user_task">
-                <h1>task assigned to : {user.username}</h1>
-                <div className="taskdiv">
-                    {
-                        user.userTasks.map((task, key) => {
-                            return (
-                              <div
-                                className={`taskbox ${task.status === "COMPLETED" ? "completed" : task.status == "PENDING" ? "pending" : "inprogress"}`}
-                                key={key}
-                              >
-                                <div className="uppermost">
-                                  <span
-                                    className={`task-flag ${task.priority === "HIGH" ? "red-flag" : task.priority == "MEDIUM" ? "orange-flag" : "green-flag"}`}
-                                  >
-                                    {task.priority}
-                                  </span>
-                                  <span className="inprogreessToaster">
-                                    {task.status}
-                                  </span>
-                                  <span className="due-date">
-                                    Due date: {task.due_date}
-                                  </span>
-                                </div>
-                                <h1>{task.title}</h1>
-                                <p>{task.description}</p>
-                                <div className="btn">
-                                  <button
-                                    onClick={() =>
-                                      completeHandlerinprogress(task.id)
-                                    }
-                                  >
-                                    mark as complete
-                                  </button>
-                                </div>
-                              </div>
-                            );
-                        })
-                    }
-                </div>
-              </div>
-            );
-        })
-      }
+      <div className="greeting">
+        <h1>Welcome, ADMIN</h1>
+        <button onClick={addTaskHandler} className="add-task">
+          <span>+</span> ADD TASK
+        </button>
+      </div>
+      {users.map((user) => {
+        return (
+          <div className="admin_user_task">
+            <h1>task assigned to : {user.username}</h1>
+            <div className="taskdiv">
+              {!user.userTasks || user.userTasks.length === 0 ? (
+                <h2>No tasks assigned</h2>
+              ) : (
+                user.userTasks.map((task, key) => {
+                  return (
+                    <div
+                      className={`taskbox ${task.status === "COMPLETED" ? "completed" : task.status == "PENDING" ? "pending" : "inprogress"}`}
+                      key={key}
+                    >
+                      <div className="uppermost">
+                        <span
+                          className={`task-flag ${task.priority === "HIGH" ? "red-flag" : task.priority == "MEDIUM" ? "orange-flag" : "green-flag"}`}
+                        >
+                          {task.priority}
+                        </span>
+                        <span className="inprogreessToaster">
+                          {task.status}
+                        </span>
+                        <span className="due-date">
+                          Due date: {task.due_date}
+                        </span>
+                      </div>
+                      <h1>{task.title}</h1>
+                      <p>{task.description}</p>
+                      <div className="btn">
+                        <button
+                          onClick={() => completeHandlerinprogress(task.id)}
+                        >
+                          mark as complete
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })
+              )}
+            </div>
+          </div>
+        );
+      })}
     </>
   );
 };
