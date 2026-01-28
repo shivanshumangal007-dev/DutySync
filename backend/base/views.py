@@ -16,6 +16,7 @@ from rest_framework.authentication import SessionAuthentication
 from django.utils import timezone
 from datetime import timedelta
 from django.contrib.auth.models import User
+from django.db.models import Count
 
 
 class CsrfExemptSessionAuthentication(SessionAuthentication):
@@ -75,7 +76,6 @@ def login_api(request):
             # Note: We use username=email because we're treating email as the unique ID
             user = authenticate(request, username=email, password=password)
             isAdmin = getattr(user.profile, 'isAdmin', False) if user.is_authenticated else False
-            isAdmin = getattr(user.profile, 'isAdmin', False) if user.is_authenticated else False
 
             if user is not None:
                 # 2. Start the session (this logs them in)
@@ -109,25 +109,34 @@ class TaskView(generics.ListAPIView):
         # 1. Define the cutoff (20 seconds ago)
         cutoff_date = timezone.now() - timedelta(days=1)
 
-        Task.objects.filter(
+        if not Task.objects.filter(
             assigned_to=user,
             status='COMPLETED',
-            completed_at__lt=cutoff_date  # 'lt' means "older than"
-        ).update(hidden=True, status="REMOVED") 
+            completed_at__lt=cutoff_date,
+            hidden=False
+        ).exists():
+            Task.objects.filter(
+                assigned_to=user,
+                status='COMPLETED',
+                completed_at__lt=cutoff_date
+            ).update(hidden=True, status="REMOVED")
 
-        return Task.objects.filter(assigned_to=user)
+        return Task.objects.filter(assigned_to=user).select_related("assigned_to")
         
 
     def list(self, request, *args, **kwargs):
         # 1. Get the original task list data
         queryset = self.get_queryset()
         serializer = self.get_serializer(queryset, many=True)
-        queryset2 = User.objects.all()
-        serializer2 = AllUsers(queryset2, many=True)
+
         # 2. Calculate the stats (only if user is logged in)
         user = request.user
         isAdmin = getattr(user.profile, 'isAdmin', False) if user.is_authenticated else False
-
+        if isAdmin:
+            queryset2 = User.objects.prefetch_related(
+                'tasks__assigned_to'
+            ).select_related('profile')
+            serializer2 = AllUsers(queryset2, many=True)
         stats = {
             "completed": 0,
             "pending": 0,
@@ -141,9 +150,20 @@ class TaskView(generics.ListAPIView):
         }
         
         if user.is_authenticated:
-            stats["completed"] = queryset.filter(status="COMPLETED").count()
-            stats["pending"] = queryset.filter(status="PENDING").count()
-            stats["inProgress"] = queryset.filter(status="IN_PROGRESS").count()
+            stats_qs = queryset.values("status").annotate(count=Count("id"))
+            stats = {
+                "completed": 0,
+                "pending": 0,
+                "inProgress": 0,
+            }
+
+            for item in stats_qs:
+                if item["status"] == "COMPLETED":
+                    stats["completed"] = item["count"]
+                elif item["status"] == "PENDING":
+                    stats["pending"] = item["count"]
+                elif item["status"] == "IN_PROGRESS":
+                    stats["inProgress"] = item["count"]
 
         # 3. Combine everything into one response
 

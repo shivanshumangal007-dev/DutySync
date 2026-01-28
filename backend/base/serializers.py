@@ -10,7 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class TaskSerializer(serializers.ModelSerializer):
 
-    assigned_to = UserSerializer(read_only=True) 
+    assigned_to = serializers.CharField(source='assigned_to.username')
     class Meta:
         model = Task
         fields = "__all__"
