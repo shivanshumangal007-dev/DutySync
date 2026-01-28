@@ -1,38 +1,22 @@
-import React, { useEffect, useRef, useState } from "react";
-import TaskDiv from "../components/TaskDIv";
-import TaskData from "../components/TaskData";
+import React, { useEffect } from "react";
+
 import axios from "axios";
 
-import { useNavigate } from "react-router-dom";
-import gsap from "gsap";
-
-const EmplyoeeDashboard = () => {
-  const [name, setName] = useState("");
-  const [task, setTasks] = useState([]);
-  const [stats, setStats] = useState({});
-  const navigate = useNavigate();
-
-
-  const navRef = useRef();
-
-
+const AdminMainDashboard = () => {
   useEffect(() => {
-    async function getData() {
-      // let response;
+    const getData = async () => {
       try {
         const response = await axios.get("http://127.0.0.1:8000/task/", {
           withCredentials: true,
         });
-        
-        setName(response.data.userDetails.username);
-        setTasks(response.data.tasks);
-        setStats(response.data.stats);
+        console.log(response.data);
       } catch (error) {
         console.log("error infetching data", error);
       }
-    }
+    };
     getData();
   }, []);
+
   const logoutHandler = async () => {
     try {
       const response = await axios.post(
@@ -50,32 +34,9 @@ const EmplyoeeDashboard = () => {
       console.error("Failed to logout: ", error);
     }
   };
-
-  useEffect(() => {
-    const preLoader = () => {
-      const ctx = gsap.context(() => {
-        const tl = gsap.timeline();
-        tl.from(".employeeMainDiv > h1",{
-          duration: 0.5,
-          x: -100,
-          opacity: 0,
-          ease: "power2.out",
-        })
-        .from(navRef.current, {
-          duration: 0.5,
-          y: -100,
-          opacity: 0,
-          ease: "power2.out",
-        });
-      });
-      return () => ctx.revert();
-    };
-    return preLoader();
-  }, []);
-
   return (
-    <div className="employeeMainDiv">
-      <nav ref={navRef}>
+    <>
+      <nav>
         <h1>
           Duty<span style={{ color: "#2b124c" }}>Sync</span>
         </h1>
@@ -87,32 +48,8 @@ const EmplyoeeDashboard = () => {
           <button onClick={logoutHandler}>logout</button>
         </div>
       </nav>
-      <h1>hello, {name}👋</h1>
-      {/* {console.log(name, task, stats)} */}
-
-      {/* <div className="tasksData">
-        <div className="taskInfo">
-          <h1>10</h1>
-          <h2>completed</h2>
-        </div>
-        <div className="taskInfo">
-          <h1>20</h1>
-          <h2>assigned</h2>
-        </div>
-        <div className="taskInfo">
-          <h1>1</h1>
-          <h2>in Progress</h2>
-        </div>
-        <div className="taskInfo">
-          <h1>40%</h1>
-          <h2>progress</h2>
-        </div>
-      // </div> */}
-      <TaskData stats={stats} />
-
-      <TaskDiv tasks={task} setTasks={setTasks} setStats={setStats} />
-    </div>
+    </>
   );
 };
 
-export default EmplyoeeDashboard;
+export default AdminMainDashboard;

@@ -5,6 +5,7 @@ import EmplyoeeDashboard from './pages/EmplyoeeDashboard'
 import { Routes, Route } from 'react-router-dom'
 import MainPage from './pages/MainPage'
 import AdminDashboard from './pages/adminDashboard'
+import AdminMainDashboard from './pages/AdminMainDashboard'
 
 
 const App = () => {
@@ -20,7 +21,7 @@ const App = () => {
       <Routes>
         <Route path='/' element={<MainPage/>}/>
         <Route path='/employee/dashboard' element={<EmplyoeeDashboard/>}/>
-        <Route path='/admin/dashboard' element={<AdminDashboard/>}/>
+        <Route path='/admin/dashboard' element={<AdminMainDashboard/>}/>
       </Routes>
     </div>
   );
