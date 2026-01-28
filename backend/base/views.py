@@ -159,7 +159,7 @@ class TaskView(generics.ListAPIView):
                 "userDetails":userDetails,
             })
         
-        
+
     
 
     
