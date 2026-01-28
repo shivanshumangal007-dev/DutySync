@@ -33,6 +33,13 @@ const Login = () => {
       console.log("Login Success:", response.data);
       // setUsername(response.data.userDetails.username);
       // setTasks(response.data.tasks || []);
+
+      const responseIsAdmin = response.data.user.is_admin;
+      // console.log("Is Admin:", responseIsAdmin);
+      if(responseIsAdmin){
+        navigate("/admin/dashboard");
+        return;
+      }
       navigate("/employee/dashboard");
     } catch (error) {
       console.log("Error:", error.response?.data || error.message);
