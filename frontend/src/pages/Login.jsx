@@ -31,11 +31,9 @@ const Login = () => {
       );
 
       console.log("Login Success:", response.data);
-      // setUsername(response.data.userDetails.username);
-      // setTasks(response.data.tasks || []);
 
-      const responseIsAdmin = response.data.userDetail.isAdmin;
-      // console.log("Is Admin:", responseIsAdmin);
+
+      const responseIsAdmin = response.data.userDetails.isAdmin;
       if(responseIsAdmin){
         navigate("/admin/dashboard");
         return;
