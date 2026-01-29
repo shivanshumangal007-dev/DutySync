@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get("DJANGO_SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG") == "True"
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]
 
@@ -95,21 +95,13 @@ WSGI_APPLICATION = "DutySync.wsgi.application"
 #         "PORT": "5432",
 #     }
 # }
-
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "postgres",
-        "USER": "postgres.yltsakspknviafzdvzxn", # CHECK THIS in your 'Connect' popup!
-        "PASSWORD": "DutySync@2602",
-        "HOST": "aws-1-ap-southeast-1.pooler.supabase.com", # Use the pooler host!
-        "PORT": "6543", # The pooler usually uses 6543 instead of 5432
-        "POOL_MODE": "transaction",
-        'CONN_MAX_AGE': 600,
-    }
+    'default': dj_database_url.config(
+        default=os.environ.get('DATABASE_URL'),
+        conn_max_age=0,  # Disable Django-side pooling; let Supabase handle it
+        ssl_require=True
+    )
 }
-
-DATABASES["default"]["CONN_MAX_AGE"] = 60
 
 
 # Password validation
