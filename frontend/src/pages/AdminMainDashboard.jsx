@@ -9,7 +9,7 @@ const AdminMainDashboard = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/task/", {
+        const response = await axios.get("https://dutysync.onrender.com/task/", {
           withCredentials: true,
         });
         // console.log(response.data.userDetails.isAdmin);
@@ -25,7 +25,7 @@ const AdminMainDashboard = () => {
   const logoutHandler = async () => {
     try {
       const response = await axios.post(
-        `http://127.0.0.1:8000/logout/`,
+        `https://dutysync.onrender.com/logout/`,
         {},
         { withCredentials: true },
       );

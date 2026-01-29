@@ -27,7 +27,7 @@ const TaskDiv = ({ tasks, setTasks, setStats }) => {
   const completeHandlerpending = async (taskId) => {
     try {
       const response = await axios.patch(
-        `http://127.0.0.1:8000/task/${taskId}/update/`,
+        `https://dutysync.onrender.com/task/${taskId}/update/`,
         { status: "COMPLETED" }, // Data being sent
         { withCredentials: true }, // Keeps you logged in
       );
@@ -55,7 +55,7 @@ const TaskDiv = ({ tasks, setTasks, setStats }) => {
   const completeHandlerinprogress = async (taskId) => {
     try {
       const response = await axios.patch(
-        `http://127.0.0.1:8000/task/${taskId}/update/`,
+        `https://dutysync.onrender.com/task/${taskId}/update/`,
         { status: "COMPLETED" }, 
         { withCredentials: true }, 
       );
@@ -83,7 +83,7 @@ const TaskDiv = ({ tasks, setTasks, setStats }) => {
   const inprogressHandler = async (taskId) => {
     try {
       const response = await axios.patch(
-        `http://127.0.0.1:8000/task/${taskId}/update/`,
+        `https://dutysync.onrender.com/task/${taskId}/update/`,
         { status: "IN_PROGRESS" }, // Data being sent
         { withCredentials: true }, // Keeps you logged in
       );

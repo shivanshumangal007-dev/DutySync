@@ -26,7 +26,7 @@ const AdminDashboard = () => {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/admin_/newTask",
+        "https://dutysync.onrender.com/admin_/newTask",
         taskData,
         { withCredentials: true },
       );
