@@ -103,7 +103,8 @@ DATABASES = {
         "USER": "postgres.yltsakspknviafzdvzxn", # CHECK THIS in your 'Connect' popup!
         "PASSWORD": "DutySync@2602",
         "HOST": "aws-1-ap-southeast-1.pooler.supabase.com", # Use the pooler host!
-        "PORT": "5432", # The pooler usually uses 6543 instead of 5432
+        "PORT": "6543", # The pooler usually uses 6543 instead of 5432
+        "POOL_MODE": "transaction",
         'CONN_MAX_AGE': 600,
     }
 }
