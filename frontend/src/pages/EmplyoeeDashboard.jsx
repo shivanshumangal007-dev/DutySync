@@ -20,7 +20,7 @@ const EmplyoeeDashboard = () => {
     async function getData() {
       // let response;
       try {
-        const response = await axios.get("https://dutysync.onrender.com/task/", {
+        const response = await axios.get("http://127.0.0.1:8000/task/", {
           withCredentials: true,
         });
         
@@ -36,7 +36,7 @@ const EmplyoeeDashboard = () => {
   const logoutHandler = async () => {
     try {
       const response = await axios.post(
-        `https://dutysync.onrender.com/logout/`,
+        `http://127.0.0.1:8000/logout/`,
         {},
         { withCredentials: true },
       );

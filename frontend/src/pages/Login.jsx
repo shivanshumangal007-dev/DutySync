@@ -17,7 +17,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "https://dutysync.onrender.com/api/login/",
+        "http://127.0.0.1:8000/api/login/",
         {
           email: email,
           password: password,
