@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import {myBaseUrl} from "../components/TaskDIv";
+import { myBaseUrl } from "../config/api";
 
 const AdminMainDashboard = () => {
   const [users, setUsers] = useState([]);

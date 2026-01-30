@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
-import {myBaseUrl} from "../components/TaskDIv";
+import { myBaseUrl } from "../config/api";
 
 
 const Login = () => {

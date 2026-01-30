@@ -5,7 +5,7 @@ import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
-import {myBaseUrl} from "../components/TaskDIv";
+import { myBaseUrl } from "../config/api";
 
 
 const EmplyoeeDashboard = () => {

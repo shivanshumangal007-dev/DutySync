@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import "./AdminDashboard.css";
 import {Navigate, useNavigate} from 'react-router-dom';
-import {myBaseUrl} from "../components/TaskDIv";
+import { myBaseUrl } from "../config/api";
 
 const AdminDashboard = () => {
   const [title, setTitle] = useState("");

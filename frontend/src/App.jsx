@@ -4,7 +4,7 @@ import Login from './pages/Login'
 import EmplyoeeDashboard from './pages/EmplyoeeDashboard'
 import { Routes, Route } from 'react-router-dom'
 import MainPage from './pages/MainPage'
-import AdminDashboard from './pages/adminDashboard'
+import AdminDashboard from './pages/AdminDashboard'
 import AdminMainDashboard from './pages/AdminMainDashboard'
 
 
