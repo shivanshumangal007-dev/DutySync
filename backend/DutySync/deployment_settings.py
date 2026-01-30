@@ -52,9 +52,10 @@ MIDDLEWARE = [
 ]
 
 
-# -------------------------
-# DATABASE (Render)
-# -------------------------
+CORS_ALLOWED_ORIGINS = [
+    
+]
+
 DATABASES = {
     "default": dj_database_url.config(
         default=os.environ.get("DATABASE_URL"),

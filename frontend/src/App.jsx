@@ -1,5 +1,5 @@
 import React from 'react'
-import Loader from './pages/loader'
+import Loader from './pages/Loader'
 import Login from './pages/Login'
 import EmplyoeeDashboard from './pages/EmplyoeeDashboard'
 import { Routes, Route } from 'react-router-dom'
