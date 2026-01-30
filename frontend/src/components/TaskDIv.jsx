@@ -1,6 +1,11 @@
 import React, { use, useEffect, useRef, useState } from "react";
 import axios from "axios";
 import gsap from "gsap";
+
+
+const isDevelopment = import.meta.env.MODE === 'development'
+export const myBaseUrl = isDevelopment ? import.meta.env.VITE_API_BASE_URL_LOCAL: import.meta.env.VITE_API_BASE_URL_DEPLOY
+
 const TaskDiv = ({ tasks, setTasks, setStats }) => {
   // const [task, setTasks] = useState([]);
   // const [loading, setLoading] = useState(true);
@@ -27,7 +32,7 @@ const TaskDiv = ({ tasks, setTasks, setStats }) => {
   const completeHandlerpending = async (taskId) => {
     try {
       const response = await axios.patch(
-        `http://127.0.0.1:8000/task/${taskId}/update/`,
+        `${myBaseUrl}/task/${taskId}/update/`,
         { status: "COMPLETED" }, // Data being sent
         { withCredentials: true }, // Keeps you logged in
       );
@@ -55,7 +60,7 @@ const TaskDiv = ({ tasks, setTasks, setStats }) => {
   const completeHandlerinprogress = async (taskId) => {
     try {
       const response = await axios.patch(
-        `http://127.0.0.1:8000/task/${taskId}/update/`,
+        `${myBaseUrl}/task/${taskId}/update/`,
         { status: "COMPLETED" }, 
         { withCredentials: true }, 
       );
@@ -83,7 +88,7 @@ const TaskDiv = ({ tasks, setTasks, setStats }) => {
   const inprogressHandler = async (taskId) => {
     try {
       const response = await axios.patch(
-        `http://127.0.0.1:8000/task/${taskId}/update/`,
+        `${myBaseUrl}/${taskId}/update/`,
         { status: "IN_PROGRESS" }, // Data being sent
         { withCredentials: true }, // Keeps you logged in
       );

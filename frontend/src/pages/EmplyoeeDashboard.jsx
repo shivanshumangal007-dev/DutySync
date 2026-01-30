@@ -5,6 +5,8 @@ import axios from "axios";
 
 import { useNavigate } from "react-router-dom";
 import gsap from "gsap";
+import {myBaseUrl} from "../components/TaskDIv";
+
 
 const EmplyoeeDashboard = () => {
   const [name, setName] = useState("");
@@ -20,7 +22,7 @@ const EmplyoeeDashboard = () => {
     async function getData() {
       // let response;
       try {
-        const response = await axios.get("http://127.0.0.1:8000/task/", {
+        const response = await axios.get(`${myBaseUrl}/task/`, {
           withCredentials: true,
         });
         
@@ -36,7 +38,7 @@ const EmplyoeeDashboard = () => {
   const logoutHandler = async () => {
     try {
       const response = await axios.post(
-        `http://127.0.0.1:8000/logout/`,
+        `${myBaseUrl}/logout/`,
         {},
         { withCredentials: true },
       );

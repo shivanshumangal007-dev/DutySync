@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import "./AdminDashboard.css";
 import {Navigate, useNavigate} from 'react-router-dom';
+import {myBaseUrl} from "../components/TaskDIv";
 
 const AdminDashboard = () => {
   const [title, setTitle] = useState("");
@@ -26,7 +27,7 @@ const AdminDashboard = () => {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/admin_/newTask",
+        `${myBaseUrl}/admin_/newTask`,
         taskData,
         { withCredentials: true },
       );

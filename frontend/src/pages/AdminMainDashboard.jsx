@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import {myBaseUrl} from "../components/TaskDIv";
 
 const AdminMainDashboard = () => {
   const [users, setUsers] = useState([]);
@@ -9,7 +10,7 @@ const AdminMainDashboard = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await axios.get("http://127.0.0.1:8000/task/", {
+        const response = await axios.get(`${myBaseUrl}/task/`, {
           withCredentials: true,
         });
         // console.log(response.data.userDetails.isAdmin);
@@ -25,7 +26,7 @@ const AdminMainDashboard = () => {
   const logoutHandler = async () => {
     try {
       const response = await axios.post(
-        `http://127.0.0.1:8000/logout/`,
+        `${myBaseUrl}/logout/`,
         {},
         { withCredentials: true },
       );

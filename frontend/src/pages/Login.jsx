@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
+import {myBaseUrl} from "../components/TaskDIv";
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -17,7 +19,7 @@ const Login = () => {
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/login/",
+        `${myBaseUrl}/api/login/`,
         {
           email: email,
           password: password,
