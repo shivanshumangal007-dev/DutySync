@@ -44,11 +44,8 @@ def newTask(request):
                 priority = priority,
             )
             return JsonResponse({
-
                 "status": "success",
-
                 "message": "Data saved successfully"
-
             })
         except Exception as e:
             return JsonResponse({
@@ -64,7 +61,7 @@ def newTask(request):
 
 
 
-@csrf_exempt    
+@csrf_exempt
 def login_api(request):
     if request.method == "POST":
         try:
@@ -176,10 +173,6 @@ class TaskView(generics.ListAPIView):
                 "userDetails":userDetails,
             })
         
-
-    
-
-    
 
 @api_view(['PATCH'])
 @authentication_classes([CsrfExemptSessionAuthentication])
