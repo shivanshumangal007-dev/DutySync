@@ -107,19 +107,14 @@ class TaskView(generics.ListAPIView):
             return Task.objects.none()
 
         # 1. Define the cutoff (20 seconds ago)
-        cutoff_date = timezone.now() - timedelta(days=1)
+        cutoff_date = timezone.now() - timedelta(days=15)
 
-        if not Task.objects.filter(
+        Task.objects.filter(
             assigned_to=user,
             status='COMPLETED',
-            completed_at__lt=cutoff_date,
+            completed_at__lte=cutoff_date, # Use 'less than or equal'
             hidden=False
-        ).exists():
-            Task.objects.filter(
-                assigned_to=user,
-                status='COMPLETED',
-                completed_at__lt=cutoff_date
-            ).update(hidden=True, status="REMOVED")
+        ).update(hidden=True, status="REMOVED")
 
         return Task.objects.filter(assigned_to=user).select_related("assigned_to")
         

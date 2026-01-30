@@ -132,7 +132,7 @@ const TaskDiv = ({ tasks, setTasks, setStats }) => {
     <div ref={taskdivref}>
       <div className="taskdiv" >
         {tasks.map((task, key) => {
-          if (task.status !== "COMPLETED" && task.status !== "PENDING") {
+          if (task.status !== "COMPLETED" && task.status !== "PENDING" && task.status !== "REMOVED") {
             return (
               <div className="taskbox inprogress" key={key}>
                 <div className="uppermost">
@@ -170,7 +170,7 @@ const TaskDiv = ({ tasks, setTasks, setStats }) => {
       </div>
       <div className="taskdiv" >
         {tasks.map((task, key) => {
-          if (task.status !== "COMPLETED" && task.status !== "IN_PROGRESS") {
+          if (task.status !== "COMPLETED" && task.status !== "IN_PROGRESS" && task.status !== "REMOVED") {
             return (
               <div className="taskbox pending" key={key}>
                 <div className="uppermost">
@@ -199,7 +199,7 @@ const TaskDiv = ({ tasks, setTasks, setStats }) => {
       </div>
       <div className="taskdiv" >
         {tasks.map((task, key) => {
-          if (task.status !== "PENDING" && task.status !== "IN_PROGRESS" ) {
+          if (task.status !== "PENDING" && task.status !== "IN_PROGRESS" && task.status !== "REMOVED") {
             return (
               <div className="taskbox completed" key={key}>
                 <div className="uppermost">
