@@ -15,7 +15,12 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 RENDER_HOST = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 
-ALLOWED_HOSTS = [RENDER_HOST] if RENDER_HOST else []
+ALLOWED_HOSTS = [
+    "dutysync.onrender.com",
+    ".onrender.com",
+    "localhost",
+    "127.0.0.1",
+]
 
 CSRF_TRUSTED_ORIGINS = (
     [f"https://{RENDER_HOST}"] if RENDER_HOST else []

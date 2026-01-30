@@ -97,7 +97,7 @@ def login_api(request):
 
 class TaskView(generics.ListAPIView):
     serializer_class = TaskSerializer
-
+    permission_classes = [IsAuthenticated]
     def get_queryset(self):
         user = self.request.user
         if not user.is_authenticated:
