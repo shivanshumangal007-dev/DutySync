@@ -64,36 +64,38 @@ def newTask(request):
 @csrf_exempt
 def login_api(request):
     if request.method == "POST":
+        data = json.loads(request.body)
+        email = data.get("email")
+        password = data.get("password")
+
+        user = authenticate(request, username=email, password=password)
+
+        if user is None:
+            return JsonResponse(
+                {"status": "error", "message": "Invalid email or password"},
+                status=401
+            )
+
+        # ✅ user exists now
+        login(request, user)
+
+        # ✅ SAFE profile access
         try:
-            data = json.loads(request.body)
-            email = data.get("email")
-            password = data.get("password")
+            isAdmin = user.profile.isAdmin
+        except Profile.DoesNotExist:
+            isAdmin = False
 
-            # 1. Verify the credentials against the User database
-            # Note: We use username=email because we're treating email as the unique ID
-            user = authenticate(request, username=email, password=password)
-            isAdmin = getattr(user.profile, 'isAdmin', False) if user.is_authenticated else False
-
-            if user is not None:
-                # 2. Start the session (this logs them in)
-                login(request, user)
-                
-                # 3. Send back details so React knows their role
-                return JsonResponse({
-                    "status": "success",
-                    "message": "Login successful",
-                    "userDetails": {
-                        "username": user.username,
-                        "isAdmin": isAdmin # Helps React decide which dashboard to show
-                    }
-                })
-            else:
-                return JsonResponse({"status": "error", "message": "Invalid email or password"}, status=401)
-
-        except Exception as e:
-            return JsonResponse({"status": "error", "message": str(e)}, status=400)
+        return JsonResponse({
+            "status": "success",
+            "message": "Login successful",
+            "userDetails": {
+                "username": user.username,
+                "isAdmin": isAdmin
+            }
+        })
 
     return JsonResponse({"error": "Only POST allowed"}, status=405)
+
 
 class TaskView(generics.ListAPIView):
     serializer_class = TaskSerializer
