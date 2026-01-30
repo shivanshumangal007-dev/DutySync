@@ -7,7 +7,9 @@ from .settings import BASE_DIR
 # -------------------------
 # SECURITY
 # -------------------------
-DEBUG = False
+
+
+DEBUG = True
 
 SECRET_KEY = os.environ.get("SECRET_KEY")
 
