@@ -53,7 +53,7 @@ MIDDLEWARE = [
 
 
 CORS_ALLOWED_ORIGINS = [
-    
+    'https://dutysyncreact.onrender.com'
 ]
 
 DATABASES = {
