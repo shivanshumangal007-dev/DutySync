@@ -18,9 +18,14 @@ const Login = () => {
     console.log("password : ", password);
 
     try {
+        await axios.post(
+          `${myBaseUrl}/logout/`,
+          {},
+          { withCredentials: true }
+        );
       const response = await axios.post(
         `${myBaseUrl}/api/login/`,
-        {
+        { 
           email: email,
           password: password,
         },
@@ -36,6 +41,7 @@ const Login = () => {
 
 
       const responseIsAdmin = response.data.userDetails.isAdmin;
+      console.log("the user is admin: ", responseIsAdmin);
       if(responseIsAdmin){
         navigate("/admin/dashboard");
         return;

@@ -8,19 +8,19 @@ const AdminMainDashboard = () => {
   const [isAdmin, setisAdmin] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
-    const getData = async () => {
-      try {
-        const response = await axios.get(`${myBaseUrl}/task/`, {
-          withCredentials: true,
-        });
-        // console.log(response.data.userDetails.isAdmin);
-        setUsers(response.data.AllUsers);
-        setisAdmin(response.data.userDetails.isAdmin);
-      } catch (error) {
-        console.log("error infetching data", error);
-      }
-    };
-    getData();
+    axios.get(`${myBaseUrl}/task/`, { withCredentials: true })
+      .then(res => {
+        if (!res.data.userDetails?.isAdmin) {
+          navigate("/employee/dashboard");
+          return;
+        }
+
+        setisAdmin(true);
+        setUsers(res.data.AllUsers);
+      })
+      .catch(() => {
+        navigate("/");
+      });
   }, []);
 
   const logoutHandler = async () => {

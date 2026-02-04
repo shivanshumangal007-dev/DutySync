@@ -64,9 +64,20 @@ def newTask(request):
 @csrf_exempt
 def login_api(request):
     if request.method == "POST":
+        request.session.flush()   # 🔥 THIS IS THE MISSING LINE
+
         data = json.loads(request.body)
         email = data.get("email")
         password = data.get("password")
+
+        from django.contrib.auth.models import User
+
+        user_obj = User.objects.filter(username=email).first()
+        if not user_obj:
+            return JsonResponse(
+                {"status": "error", "message": "User not found"},
+                status=401
+            )
 
         user = authenticate(request, username=email, password=password)
 
@@ -95,11 +106,14 @@ def login_api(request):
         })
 
     return JsonResponse({"error": "Only POST allowed"}, status=405)
+    
 
 
 class TaskView(generics.ListAPIView):
     serializer_class = TaskSerializer
+    authentication_classes = [CsrfExemptSessionAuthentication]
     permission_classes = [IsAuthenticated]
+
     def get_queryset(self):
         user = self.request.user
         if not user.is_authenticated:
@@ -139,9 +153,10 @@ class TaskView(generics.ListAPIView):
 
         userDetails = {
             "username": user.username,
-            "email": user.email,
-            'isAdmin': isAdmin
+            "email": user.email if user.is_authenticated else None,
+            "isAdmin": isAdmin
         }
+
         
         if user.is_authenticated:
             stats_qs = queryset.values("status").annotate(count=Count("id"))
