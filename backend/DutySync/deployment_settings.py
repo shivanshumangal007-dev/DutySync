@@ -106,7 +106,7 @@ DATABASES = {
     }
 }
 
-DATABASES["default"]["CONN_MAX_AGE"] = 0
+DATABASES["default"]["CONN_MAX_AGE"] = 60
 
 
 # Password validation
