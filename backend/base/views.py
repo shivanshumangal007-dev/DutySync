@@ -17,6 +17,8 @@ from django.utils import timezone
 from datetime import timedelta
 from django.contrib.auth.models import User
 from django.db.models import Count
+from rest_framework.permissions import AllowAny
+
 
 
 class CsrfExemptSessionAuthentication(SessionAuthentication):
@@ -58,6 +60,7 @@ def newTask(request):
 
     return JsonResponse({"error": "Only POST allowed"})
 
+permission_classes = [AllowAny]
 @csrf_exempt
 def login_api(request):
     if request.method == "POST":
@@ -100,7 +103,7 @@ def login_api(request):
 
     return JsonResponse({"error": "Only POST allowed"}, status=405)
 
-
+permission_classes = [AllowAny]
 class TaskView(generics.ListAPIView):
     serializer_class = TaskSerializer
     authentication_classes = [CsrfExemptSessionAuthentication]
@@ -185,7 +188,6 @@ class TaskView(generics.ListAPIView):
 
 @api_view(['PATCH'])
 @authentication_classes([CsrfExemptSessionAuthentication])
-@permission_classes([IsAuthenticated])
 def updateTaskStatus(request, pk):
 
     task = get_object_or_404(Task, id = pk, assigned_to=request.user)
@@ -204,7 +206,8 @@ def updateTaskStatus(request, pk):
     return Response({"error": "No status provided"}, status=400)
 
 
-@csrf_exempt
+@api_view(["POST"])
+@authentication_classes([CsrfExemptSessionAuthentication])
 def logoutUser(request):
     logout(request)
     return JsonResponse({
