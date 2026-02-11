@@ -8,4 +8,6 @@ urlpatterns = [
     path('task/<int:pk>/update/', views.updateTaskStatus),
     path('logout/', views.logoutUser, name="logout"),
     path('admin_/newTask', views.newTask, name='newTask'),
+    path("csrf/", views.csrf, name="csrf"),
+
 ]

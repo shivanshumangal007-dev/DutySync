@@ -25,7 +25,12 @@ class CsrfExemptSessionAuthentication(SessionAuthentication):
     def enforce_csrf(self, request):
         return
     
+from django.views.decorators.csrf import ensure_csrf_cookie
+from django.http import JsonResponse
 
+@ensure_csrf_cookie
+def csrf(request):
+    return JsonResponse({"ok": True})
     
 @csrf_exempt
 def newTask(request):

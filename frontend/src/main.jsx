@@ -3,10 +3,14 @@ import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
 import { BrowserRouter } from 'react-router-dom'
-import axios from 'axios'
+import axios from "axios";
 
-// 🔑 THIS LINE (must be before any requests)
+axios.defaults.baseURL = "https://dutysync.onrender.com";
 axios.defaults.withCredentials = true;
+
+// 🔑 CSRF config
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.xsrfHeaderName = "X-CSRFToken";
 
 BrowserRouter
 

@@ -6,9 +6,15 @@ import { Routes, Route } from 'react-router-dom'
 import MainPage from './pages/MainPage'
 import AdminDashboard from './pages/AdminDashboard'
 import AdminMainDashboard from './pages/AdminMainDashboard'
-
+import React, { useEffect } from "react";
+import axios from "axios";
 
 const App = () => {
+
+
+  useEffect(() => {
+    axios.get("/csrf/");
+  }, []);
   return (
     <div>
       {/* <Loader />

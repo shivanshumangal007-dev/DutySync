@@ -155,6 +155,10 @@ REST_FRAMEWORK = {
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR/"staticfiles"
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://dutysyncreact.onrender.com",
+    "https://dutysync.onrender.com",
+]
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173", # Or whatever port your frontend is on
@@ -165,5 +169,8 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ALLOW_CREDENTIALS = True
 CSRF_COOKIE_HTTPONLY = False
 
-SESSION_COOKIE_SAMESITE = 'Lax'
-CSRF_COOKIE_SAMESITE = 'Lax'
+SESSION_COOKIE_SAMESITE = "None"
+CSRF_COOKIE_SAMESITE = "None"
+
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
