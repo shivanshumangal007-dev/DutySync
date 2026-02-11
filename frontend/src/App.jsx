@@ -14,6 +14,8 @@ const App = () => {
   useEffect(() => {
     axios.get("/csrf/");
   }, []);
+
+  
   return (
     <div>
       {/* <Loader />

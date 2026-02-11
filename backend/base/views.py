@@ -65,7 +65,6 @@ def newTask(request):
 
     return JsonResponse({"error": "Only POST allowed"})
 
-permission_classes = [AllowAny]
 @csrf_exempt
 def login_api(request):
     if request.method == "POST":
@@ -108,7 +107,6 @@ def login_api(request):
 
     return JsonResponse({"error": "Only POST allowed"}, status=405)
 
-permission_classes = [AllowAny]
 class TaskView(generics.ListAPIView):
     serializer_class = TaskSerializer
     authentication_classes = [CsrfExemptSessionAuthentication]
