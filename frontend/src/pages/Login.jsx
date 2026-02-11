@@ -18,11 +18,11 @@ const Login = () => {
     console.log("password : ", password);
 
     try {
-        await axios.post(
-          `${myBaseUrl}/logout/`,
-          {},
-          { withCredentials: true }
-        );
+        // await axios.post(
+        //   `${myBaseUrl}/logout/`,
+        //   {},
+        //   { withCredentials: true }
+        // );
       const response = await axios.post(
         `${myBaseUrl}/api/login/`,
         { 

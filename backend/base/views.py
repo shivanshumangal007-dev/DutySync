@@ -58,13 +58,9 @@ def newTask(request):
 
     return JsonResponse({"error": "Only POST allowed"})
 
-
-
-
 @csrf_exempt
 def login_api(request):
     if request.method == "POST":
-        request.session.flush()   # 🔥 THIS IS THE MISSING LINE
 
         data = json.loads(request.body)
         email = data.get("email")
@@ -72,25 +68,22 @@ def login_api(request):
 
         from django.contrib.auth.models import User
 
-        user_obj = User.objects.filter(username=email).first()
-        if not user_obj:
+        user = User.objects.filter(email=email).first()
+        if not user:
             return JsonResponse(
                 {"status": "error", "message": "User not found"},
                 status=401
             )
 
-        user = authenticate(request, username=email, password=password)
-
-        if user is None:
+        if not user.check_password(password):
             return JsonResponse(
                 {"status": "error", "message": "Invalid email or password"},
                 status=401
             )
 
-        # ✅ user exists now
         login(request, user)
+        request.session.cycle_key()
 
-        # ✅ SAFE profile access
         try:
             isAdmin = user.profile.isAdmin
         except Profile.DoesNotExist:
@@ -106,7 +99,6 @@ def login_api(request):
         })
 
     return JsonResponse({"error": "Only POST allowed"}, status=405)
-    
 
 
 class TaskView(generics.ListAPIView):

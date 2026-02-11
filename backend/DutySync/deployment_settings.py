@@ -11,7 +11,7 @@ from .settings import BASE_DIR
 
 DEBUG = True
 
-SECRET_KEY = os.environ.get("SECRET_KEY")
+SECRET_KEY = os.environ.get("SECRET_KEY", "unsafe-dev-secret")
 
 RENDER_HOST = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
 
@@ -75,12 +75,15 @@ CORS_ALLOWED_ORIGINS = [
     "https://dutysyncreact.onrender.com",
 ]
 
+STATIC_URL = "static/"
+
 CORS_ALLOW_CREDENTIALS = True
 CSRF_COOKIE_HTTPONLY = False
 
 SESSION_COOKIE_SAMESITE = "None"
 SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_DOMAIN = ".onrender.com"
+CSRF_COOKIE_DOMAIN = ".onrender.com"
 
 CSRF_COOKIE_SAMESITE = "None"
 CSRF_COOKIE_SECURE = True
